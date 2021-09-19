@@ -5,11 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.timetable.databinding.MainListFragmentBinding
 
-private lateinit var binding: MainListFragmentBinding
+class ListFragment(position: Int): Fragment() {
 
-class ListFragment: Fragment() {
+    private lateinit var binding: MainListFragmentBinding
+    private val viewModel by viewModels<JobViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,5 +27,15 @@ class ListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val adapter = JobListAdapter()
+        binding.jobsList.apply {
+            layoutManager = LinearLayoutManager(context)
+            binding.jobsList.adapter = adapter
+        }
+
+        viewModel.readAllData.observe(viewLifecycleOwner, {
+            adapter.setData(it)
+        })
     }
 }

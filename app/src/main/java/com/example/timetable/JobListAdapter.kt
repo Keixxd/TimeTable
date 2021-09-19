@@ -7,11 +7,14 @@ import com.example.timetable.databinding.JobBinding
 
 class JobListAdapter: RecyclerView.Adapter<JobListAdapter.JobViewHolder>() {
 
-    val list = mutableListOf<Int>(1,4,6,2,6,8,2,6,3)
+    private var jobList = emptyList<Job>()
 
     inner class JobViewHolder(private val binding: JobBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(data: MutableList<Int>){
-            binding.number.text = data[adapterPosition].toString()
+        fun bind(){
+            binding.jobName.text = jobList[adapterPosition].jobName
+            binding.jobTeacher.text = jobList[adapterPosition].jobTeacher
+            binding.jobClass.text = jobList[adapterPosition].classroom
+            binding.jobTime.text = jobList[adapterPosition].time
         }
     }
 
@@ -21,9 +24,14 @@ class JobListAdapter: RecyclerView.Adapter<JobListAdapter.JobViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
-        holder.bind(list)
+        holder.bind()
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = jobList.size
+
+    fun setData(data : List<Job>){
+        this.jobList = data
+        notifyDataSetChanged()
+    }
 
 }
