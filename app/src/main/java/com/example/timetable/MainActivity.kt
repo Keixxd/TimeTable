@@ -15,6 +15,13 @@ class MainActivity : AppCompatActivity() {
 
     private val NUM_PAGES = 7
     private lateinit var binding: ActivityMainBinding
+    private val dayMap = mapOf(0 to "Понедельник",
+                                1 to "Вторник",
+                                2 to "Среда",
+                                3 to "Четверг",
+                                4 to "Пятница",
+                                5 to "Суббота",
+                                6 to "Воскресенье")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.addButton.setOnClickListener {
+            //AddDialogFragment(this).show(supportFragmentManager, "AddDialog")
             startActivity(Intent(this, AddActivity::class.java))
         }
     }
@@ -35,16 +43,8 @@ class MainActivity : AppCompatActivity() {
         override fun getItemCount(): Int = NUM_PAGES
 
         override fun createFragment(position: Int): Fragment {
-            when (position) {
-                0 -> return ListFragment(position)
-                1 -> return ListFragment(position)
-                2 -> return ListFragment(position)
-                3 -> return ListFragment(position)
-                4 -> return ListFragment(position)
-                5 -> return ListFragment(position)
-                6 -> return ListFragment(position)
-            }
-            return ListFragment(position)
+
+            return ListFragment(dayMap.get(position))
         }
     }
 }

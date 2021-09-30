@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.timetable.databinding.MainListFragmentBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ListFragment(position: Int): Fragment() {
+class ListFragment(val dayName: String?): Fragment() {
 
     private lateinit var binding: MainListFragmentBinding
     private val viewModel by viewModels<JobViewModel>()
@@ -34,8 +37,18 @@ class ListFragment(position: Int): Fragment() {
             binding.jobsList.adapter = adapter
         }
 
-        viewModel.readAllData.observe(viewLifecycleOwner, {
-            adapter.setData(it)
+        viewModel.getDayData(dayName).observe(viewLifecycleOwner, {dayData ->
+            adapter.setData(dayData)
+
+            viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){
+                if(adapter.itemCount > 0){
+                    binding.textView.visibility = View.GONE
+                    binding.jobsList.visibility = View.VISIBLE
+                }else{
+                    binding.jobsList.visibility = View.GONE
+                    binding.textView.visibility = View.VISIBLE
+                }
+            }
         })
     }
 }

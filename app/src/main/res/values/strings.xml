@@ -3,7 +3,24 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="addButtonDesc">Add job button</string>
-    
+    <string name="error_message_placeholder">ERROR_MESSAGE_PLACEHOLDER</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Отмена</string>
+    <string name="add_job">Добавить занятие</string>
+    <string name="timepicker_title">Укажите время</string>
+    <string name="spinner_item_placeholder">SPINNER_ITEM_PLACEHOLDER</string>
+    <string name="job_name">Предмет</string>
+    <string name="job_teacher">Преподаватель</string>
+    <string name="job_class">Место</string>
+    <string name="day_of_week">День недели</string>
+    <string name="starts_in">Начало</string>
+    <string name="ends_in">Конец</string>
+    <string name="time_placeholder">99:99</string>
+    <string name="day_of_week_placeholder">DAY_OF_WEEK_PLACEHOLDER</string>
+    <string name="day_of_week_picker_default">Понедельник</string>
+    <string name="even_week">Четная неделя</string>
+    <string name="day_picker_dialog_title">Выберите дни недели</string>
+
     <string-array name="week_days">
         <item>Понедельник</item>
         <item>Вторник</item>
