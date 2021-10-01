@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.timetable.databinding.ActivityMainBinding
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +38,14 @@ class MainActivity : AppCompatActivity() {
             //AddDialogFragment(this).show(supportFragmentManager, "AddDialog")
             startActivity(Intent(this, AddActivity::class.java))
         }
+
+        val tabLayoutMediator = TabLayoutMediator(binding.tabLayout, binding.listsPager,
+            object: TabLayoutMediator.TabConfigurationStrategy{
+                override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
+                    tab.setText(dayMap.get(position))
+                }
+            })
+        tabLayoutMediator.attach()
     }
 
     private inner class PagerFragmentAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
