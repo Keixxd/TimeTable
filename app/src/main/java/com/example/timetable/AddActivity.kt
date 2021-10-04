@@ -1,5 +1,6 @@
 package com.example.timetable
 
+import android.app.TimePickerDialog
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import com.example.timetable.databinding.ActivityAddBinding
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.util.*
 import kotlin.collections.ArrayList
@@ -20,7 +22,7 @@ class AddActivity : AppCompatActivity() {
     private val viewModel by viewModels<JobViewModel>()
     private lateinit var binding: ActivityAddBinding
     private val time = Calendar.getInstance()
-    private var dayPicked = ""
+    private var dayPicked = "Понедельник"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,20 +31,21 @@ class AddActivity : AppCompatActivity() {
 
         val itemsList = resources.getStringArray(R.array.week_days)
 
-        val currentTime = DateUtils.formatDateTime(this,time.timeInMillis,
-            DateUtils.FORMAT_SHOW_TIME)
-        val currentTimeList = currentTime.split(":")
-        binding.dayOfWeekText.text = resources.getText(R.string.day_of_week_picker_default)
-        binding.startTimeText.text = currentTime
-        binding.endTimeText.text = currentTime
+        binding.dayOfWeekText.text = dayPicked
+        binding.startTimeText.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(time.time)
+        binding.endTimeText.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(time.time)
 
-        initTimePickers(binding.startTimePicker, currentTimeList)
-        initTimePickers(binding.endTimePicker, currentTimeList)
+        initTimePickers(binding.startTimePicker, binding.startTimeText)
+        initTimePickers(binding.endTimePicker, binding.endTimeText)
 
         initDayOfWeekPicker(itemsList)
 
         binding.addConfirm.setOnClickListener{
             insertJobToDatabase()
+        }
+
+        binding.addCancel.setOnClickListener {
+            onBackPressed()
         }
     }
 
@@ -59,6 +62,8 @@ class AddActivity : AppCompatActivity() {
             val job = Job(null, dayOfWeek, jobName, jobTeacher, jobStartTime, jobEndTime, jobClass, jobIsEven)
             viewModel.addJob(job)
             onBackPressed()
+        }else{
+            Toast.makeText(this, "Заполните пустые поля", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -69,37 +74,16 @@ class AddActivity : AppCompatActivity() {
                 && jobStartTime.isEmpty() && jobClass.isEmpty() && jobEndTime.isEmpty() )
     }
 
-    private fun initTimePickers(pickerLayout: LinearLayout, timeList: List<String>){
+    private fun initTimePickers(pickerLayout: LinearLayout, timeTextView: TextView){
 
-        pickerLayout.setOnClickListener{
-            val timePicker = MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setHour(timeList[0].toInt())
-                .setMinute(timeList[1].toInt())
-                .setTitleText(R.string.timepicker_title)
-                .build()
-            timePicker.addOnPositiveButtonClickListener{
-
-                time.set(Calendar.HOUR_OF_DAY, timePicker.hour)
-                time.set(Calendar.MINUTE, timePicker.minute)
-
-                when(pickerLayout.id) {
-                    R.id.startTimePicker -> setViewTime(binding.startTimeText, timePicker)
-                    R.id.endTimePicker -> setViewTime(binding.endTimeText, timePicker)
-                }
+        pickerLayout.setOnClickListener {
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                time.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                time.set(Calendar.MINUTE, minute)
+                timeTextView.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(time.time)
             }
-            timePicker.addOnCancelListener {
-                timePicker.dismiss()
-            }
-            timePicker.show(supportFragmentManager, "time_picker")
+            TimePickerDialog(this, timeSetListener, time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), true).show()
         }
-    }
-
-    private fun setViewTime(timeTextView: TextView, timePicker: MaterialTimePicker) {
-        if(timePicker.minute < 10)
-            timeTextView.text = "${timePicker.hour}:0${timePicker.minute}"
-        else
-            timeTextView.text = "${timePicker.hour}:${timePicker.minute}"
     }
 
     private fun initDayOfWeekPicker(itemsList: Array<out String>){

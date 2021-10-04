@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/error_message_placeholder"
+        android:text="@string/error_message_default"
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
