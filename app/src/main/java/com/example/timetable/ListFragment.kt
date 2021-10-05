@@ -31,7 +31,7 @@ class ListFragment(val dayName: String?): Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = JobListAdapter()
+        val adapter = JobListAdapter(requireContext())
         binding.jobsList.apply {
             layoutManager = LinearLayoutManager(context)
             binding.jobsList.adapter = adapter

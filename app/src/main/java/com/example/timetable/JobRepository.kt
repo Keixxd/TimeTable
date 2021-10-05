@@ -13,4 +13,8 @@ class JobRepository(private val jobDao: JobDao) {
     suspend fun addJob(job: Job){
         jobDao.addJob(job)
     }
+
+    suspend fun updateJob(job: Job){
+        jobDao.updateJob(job)
+    }
 }

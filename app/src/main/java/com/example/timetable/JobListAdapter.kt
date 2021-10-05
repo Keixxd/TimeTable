@@ -1,12 +1,14 @@
 package com.example.timetable
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.timetable.databinding.JobBinding
 import com.example.timetable.databinding.JobNewBinding
 
-class JobListAdapter(): RecyclerView.Adapter<JobListAdapter.JobViewHolder>() {
+class JobListAdapter(val context: Context): RecyclerView.Adapter<JobListAdapter.JobViewHolder>() {
 
     private var jobList = emptyList<Job>()
     private val EMPTY_LIST = 0
@@ -19,6 +21,11 @@ class JobListAdapter(): RecyclerView.Adapter<JobListAdapter.JobViewHolder>() {
             binding.jobNameText.text = jobList[adapterPosition].jobName
             binding.jobTeacherText.text = jobList[adapterPosition].jobTeacher
             binding.jobClassText.text = jobList[adapterPosition].classroom
+            binding.jobCard.setOnClickListener{
+                val intent = Intent(context, UpdateActivity::class.java)
+                intent.putExtra("selected_item", jobList[adapterPosition])
+                startActivity(context, intent, null)
+            }
         }
     }
 

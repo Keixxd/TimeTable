@@ -13,8 +13,6 @@ class JobViewModel(application: Application): AndroidViewModel(application) {
     private val jobDao = JobDatabase.getDatabase(application).jobDao()
     private val jobRepository: JobRepository = JobRepository(jobDao)
 
-    val readAllData: LiveData<List<Job>> = jobRepository.readAllData
-
     fun getDayData(dayName: String?): LiveData<List<Job>>{
         return jobRepository.getDayJobs(dayName)
     }
@@ -22,6 +20,12 @@ class JobViewModel(application: Application): AndroidViewModel(application) {
     fun addJob(job: Job){
         viewModelScope.launch(Dispatchers.IO) {
             jobRepository.addJob(job)
+        }
+    }
+
+    fun updateJob(job: Job){
+        viewModelScope.launch(Dispatchers.IO) {
+            jobRepository.updateJob(job)
         }
     }
 }

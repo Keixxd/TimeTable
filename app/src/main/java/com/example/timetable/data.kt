@@ -3,6 +3,7 @@ package com.example.timetable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "job_table")
 data class Job(
@@ -15,4 +16,4 @@ data class Job(
     @ColumnInfo(name = "endTime") var endTime: String?,
     @ColumnInfo(name = "classroom") var classroom: String?,
     @ColumnInfo(name = "even_week") var evenWeek: Boolean
-    )
+    ):Serializable

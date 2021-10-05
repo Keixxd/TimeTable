@@ -9,10 +9,11 @@
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/drawable/rectangle_rounded.xml" value="0.2942708333333333" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/activity_add.xml" value="0.33" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/activity_empty_list.xml" value="0.2105978260869565" />
-        <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/activity_main.xml" value="1.0" />
+        <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/activity_update.xml" value="0.254981884057971" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/fragment_add.xml" value="0.21920289855072464" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/fragment_blank.xml" value="0.1875" />
-        <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/job.xml" value="0.5" />
+        <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/job.xml" value="0.33" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/job_list_fragment.xml" value="0.2296195652173913" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/job_new.xml" value="0.25" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/list_fragment.xml" value="0.1875" />

@@ -26,6 +26,7 @@
         android:clickable="true"
         android:contentDescription="@string/addButtonDesc"
         android:focusable="true"
+        app:backgroundTint="@null"
         app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
