@@ -2,11 +2,8 @@ package com.example.timetable
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.room.Dao
-import androidx.room.Insert
+import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
-import androidx.room.Update
 
 @Dao
 interface JobDao {
@@ -21,4 +18,7 @@ interface JobDao {
 
     @Update
     suspend fun updateJob(job: Job)
+
+    @Delete
+    suspend fun deleteJob(job: Job)
 }

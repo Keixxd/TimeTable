@@ -17,4 +17,8 @@ class JobRepository(private val jobDao: JobDao) {
     suspend fun updateJob(job: Job){
         jobDao.updateJob(job)
     }
+
+    suspend fun deleteJob(job: Job){
+        jobDao.deleteJob(job)
+    }
 }

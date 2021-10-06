@@ -23,6 +23,9 @@
     <string name="placeholder_long">PLACEHOLDER_PLACEHOLDER</string>
     <string name="placeholder_short">PLACEHOLDER</string>
     <string name="teacher_name_placeholder">TEACHER_NAME_PLACEHOLDER</string>
+    <string name="app_action_default_title">Расписание</string>
+    <string name="app_bar_setting_button_title">appBarSetting</string>
+    <string name="app_bar_filter_button_title">appBarFilter</string>
 
     <string-array name="week_days">
         <item>Понедельник</item>

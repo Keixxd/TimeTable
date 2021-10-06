@@ -28,4 +28,10 @@ class JobViewModel(application: Application): AndroidViewModel(application) {
             jobRepository.updateJob(job)
         }
     }
+
+    fun deleteJob(job: Job){
+        viewModelScope.launch(Dispatchers.IO) {
+            jobRepository.deleteJob(job)
+        }
+    }
 }

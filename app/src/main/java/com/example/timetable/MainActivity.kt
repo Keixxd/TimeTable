@@ -3,6 +3,10 @@ package com.example.timetable
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -12,6 +16,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.timetable.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,17 +30,18 @@ class MainActivity : AppCompatActivity() {
                                 5 to "Суббота",
                                 6 to "Воскресенье")
 
+    private val time = Calendar.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.listsPager.apply {
+        binding.listsPager.apply {git
             adapter = PagerFragmentAdapter(this@MainActivity)
         }
 
         binding.addButton.setOnClickListener {
-            //AddDialogFragment(this).show(supportFragmentManager, "AddDialog")
             startActivity(Intent(this, AddActivity::class.java))
         }
 
@@ -46,6 +52,38 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         tabLayoutMediator.attach()
+
+        val appActionBar = supportActionBar
+        appActionBar?.title = resources.getText(R.string.app_action_default_title)
+
+        binding.listsPager.setCurrentItem(getCurrentDayOfWeekIndex())
+
+        Log.d("info_log", "${getCurrentDayOfWeekIndex()}")
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
+        R.id.action_settings ->{
+            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+            true
+        }
+
+        R.id.action_filter ->{
+            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+            true
+        }
+        else ->
+            super.onOptionsItemSelected(item)
+    }
+
+    private fun getCurrentDayOfWeekIndex(): Int = when(time.get(Calendar.DAY_OF_WEEK)){
+        1 -> 6
+        7 -> 5
+        else -> time.get(Calendar.DAY_OF_WEEK) - 2
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.app_bar_menu, menu)
+        return true
     }
 
     private inner class PagerFragmentAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {

@@ -27,6 +27,9 @@ class UpdateActivity: AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val addActionBar = supportActionBar
+        addActionBar?.setDisplayHomeAsUpEnabled(true)
         val itemsList = resources.getStringArray(R.array.week_days)
         val selectedItem = intent.getSerializableExtra("selected_item") as Job
 
@@ -104,5 +107,10 @@ class UpdateActivity: AppCompatActivity(){
         binding.dayOfWeekPicker.setOnClickListener {
             picker.show()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

@@ -29,6 +29,8 @@ class AddActivity : AppCompatActivity() {
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val addActionBar = supportActionBar
+        addActionBar?.setDisplayHomeAsUpEnabled(true)
         val itemsList = resources.getStringArray(R.array.week_days)
 
         binding.dayOfWeekText.text = dayPicked
@@ -99,5 +101,10 @@ class AddActivity : AppCompatActivity() {
         binding.dayOfWeekPicker.setOnClickListener {
             picker.show()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
