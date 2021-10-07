@@ -40,8 +40,8 @@ class UpdateActivity: AppCompatActivity(){
         val startTimeList = binding.startTimeText.text.split(":")
         val endTimeList = binding.endTimeText.text.split(":")
 
-        initTimePickers(binding.startTimePicker, binding.startTimeText, startTimeList)
-        initTimePickers(binding.endTimePicker, binding.endTimeText, endTimeList)
+        initTimePickers(binding.startTimePickerLayout, binding.startTimeText, startTimeList)
+        initTimePickers(binding.endTimePickerLayout, binding.endTimeText, endTimeList)
 
         initDayOfWeekPicker(itemsList)
 
@@ -104,7 +104,7 @@ class UpdateActivity: AppCompatActivity(){
                 }
             })
         picker.create()
-        binding.dayOfWeekPicker.setOnClickListener {
+        binding.dayOfWeekPickerLayout.setOnClickListener {
             picker.show()
         }
     }

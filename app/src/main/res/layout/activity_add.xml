@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1AAAAAAA"
     tools:context=".AddActivity"
     android:orientation="vertical">
 
@@ -52,38 +51,38 @@
         android:background="#1AAAAAAA">
 
         <LinearLayout
-            android:id="@+id/dayOfWeekPicker"
+            android:id="@+id/dayOfWeekPickerLayout"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:orientation="horizontal"
             android:background="@drawable/add_layout_background"
-            android:foreground="?attr/selectableItemBackground"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="16sp"
-                android:text="@string/day_of_week"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="4dp" />
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:text="@string/day_of_week"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/dayOfWeekText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="16sp"
-                android:text="@string/day_of_week_placeholder"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
                 android:gravity="end"
-                android:layout_marginEnd="4dp"/>
+                android:text="@string/day_of_week_placeholder"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/startTimePicker"
+            android:id="@+id/startTimePickerLayout"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:orientation="horizontal"
@@ -115,7 +114,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/endTimePicker"
+            android:id="@+id/endTimePickerLayout"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:orientation="horizontal"
@@ -144,10 +143,11 @@
                 android:gravity="end"
                 android:layout_marginEnd="4dp"
                 android:textSize="16sp" />
+
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/isOnEvenWeekChecker"
+            android:id="@+id/evenWeekCheckerLayout"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:orientation="horizontal"
@@ -158,14 +158,24 @@
             android:focusable="true">
 
 
-            <CheckBox
-                android:id="@+id/checkEven"
-                android:text="@string/even_week"
+            <TextView
+                android:id="@+id/evenWeekCheckerText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.AppCompat.TextView"
+                android:layout_weight="1"
+                android:text="@string/even_week"
+                android:layout_marginStart="4dp"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/checkEven"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:layoutDirection="rtl" />
+                android:layout_weight="1"
+                android:clickable="false"
+                android:layoutDirection="rtl"
+                android:enabled="false"/>
 
         </LinearLayout>
 
@@ -181,15 +191,15 @@
 
         <Button
             android:id="@+id/addCancel"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
             android:text="@string/cancel" />
 
         <Button
             android:id="@+id/addConfirm"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
             android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
             android:layout_height="wrap_content"
             android:text="@string/ok" />
     </LinearLayout>

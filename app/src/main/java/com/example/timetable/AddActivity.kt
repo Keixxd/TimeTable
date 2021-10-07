@@ -37,8 +37,8 @@ class AddActivity : AppCompatActivity() {
         binding.startTimeText.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(time.time)
         binding.endTimeText.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(time.time)
 
-        initTimePickers(binding.startTimePicker, binding.startTimeText)
-        initTimePickers(binding.endTimePicker, binding.endTimeText)
+        initTimePickers(binding.startTimePickerLayout, binding.startTimeText)
+        initTimePickers(binding.endTimePickerLayout, binding.endTimeText)
 
         initDayOfWeekPicker(itemsList)
 
@@ -48,6 +48,10 @@ class AddActivity : AppCompatActivity() {
 
         binding.addCancel.setOnClickListener {
             onBackPressed()
+        }
+
+        binding.evenWeekCheckerLayout.setOnClickListener {
+            setCheckBoxChecked()
         }
     }
 
@@ -98,9 +102,16 @@ class AddActivity : AppCompatActivity() {
                 }
             })
         picker.create()
-        binding.dayOfWeekPicker.setOnClickListener {
+        binding.dayOfWeekPickerLayout.setOnClickListener {
             picker.show()
         }
+    }
+
+    private fun setCheckBoxChecked(){
+        if(binding.checkEven.isChecked)
+            binding.checkEven.isChecked = false
+        else
+            binding.checkEven.isChecked = true
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <!-- Base application theme. -->
     <style name="Theme.TimeTable" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
@@ -12,5 +13,143 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <!-- Purple_100 Theme -->
+    <style name="Theme.TimeTable.Purple_100" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/primaryPurple_100</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkPurple_100</item>
+        <item name="colorOnPrimary">@color/primaryTextPurple_100</item>
+
+        <item name="android:textColorSecondary">@color/primaryDarkPurple_100</item>
+        <item name="colorSecondary">@color/secondaryPurple_100</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- Indigo_100 Theme -->
+    <style name="Theme.TimeTable.Indigo_100" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primaryIndigo_100</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkIndigo_100</item>
+        <item name="colorOnPrimary">@color/primaryTextIndigo_100</item>
+
+        <!-- Secondary brand color (buttons, switches, selected text, progress bars, links, headlines -->
+        <item name="android:textColorSecondary">@color/primaryDarkIndigo_100</item>
+        <item name="colorSecondary">@color/secondaryIndigo_100</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- Red_100 Theme -->
+    <style name="Theme.TimeTable.Red_100" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primaryRed_100</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkRed_100</item>
+        <item name="colorOnPrimary">@color/primaryTextRed_100</item>
+
+        <!-- Secondary brand color (buttons, switches, selected text, progress bars, links, headlines -->
+        <item name="android:textColorSecondary">@color/primaryDarkRed_100</item>
+        <item name="colorSecondary">@color/secondaryRed_100</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- Pink_100 Theme -->
+    <style name="Theme.TimeTable.Pink_100" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primaryPink_100</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkPink_100</item>
+        <item name="colorOnPrimary">@color/primaryTextPink_100</item>
+
+        <!-- Secondary brand color (buttons, switches, selected text, progress bars, links, headlines -->
+        <item name="android:textColorSecondary">@color/primaryDarkPink_100</item>
+        <item name="colorSecondary">@color/secondaryPink_100</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- DeepPurple_100 Theme -->
+    <style name="Theme.TimeTable.DeepPurple_100" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primaryDeepPurple_100</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkDeepPurple_100</item>
+        <item name="colorOnPrimary">@color/primaryTextDeepPurple_100</item>
+
+        <!-- Secondary brand color (buttons, switches, selected text, progress bars, links, headlines -->
+        <item name="android:textColorSecondary">@color/primaryDarkDeepPurple_100</item>
+        <item name="colorSecondary">@color/secondaryDeepPurple_100</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- Blue_100 Theme -->
+    <style name="Theme.TimeTable.Blue_100" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primaryBlue_100</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkBlue_100</item>
+        <item name="colorOnPrimary">@color/primaryTextBlue_100</item>
+
+        <!-- Secondary brand color (buttons, switches, selected text, progress bars, links, headlines -->
+        <item name="android:textColorSecondary">@color/primaryDarkBlue_100</item>
+        <item name="colorSecondary">@color/secondaryBlue_100</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- Green_100 Theme -->
+    <style name="Theme.TimeTable.Green_100" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primaryGreen_100</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkGreen_100</item>
+        <item name="colorOnPrimary">@color/primaryTextGreen_100</item>
+
+        <!-- Secondary brand color (buttons, switches, selected text, progress bars, links, headlines -->
+        <item name="android:textColorSecondary">@color/primaryDarkGreen_100</item>
+        <item name="colorSecondary">@color/secondaryGreen_100</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- Ember_100 Theme -->
+    <style name="Theme.TimeTable.Ember_100" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primaryEmber_100</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkEmber_100</item>
+        <item name="colorOnPrimary">@color/primaryTextEmber_100</item>
+
+        <!-- Secondary brand color (buttons, switches, selected text, progress bars, links, headlines -->
+        <item name="android:textColorSecondary">@color/primaryDarkEmber_100</item>
+        <item name="colorSecondary">@color/secondaryEmber_100</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- Gray_100 Theme -->
+    <style name="Theme.TimeTable.Gray_100" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primaryGray_100</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkGray_100</item>
+        <item name="colorOnPrimary">@color/primaryTextGray_100</item>
+
+        <!-- Secondary brand color (buttons, switches, selected text, progress bars, links, headlines -->
+        <item name="android:textColorSecondary">@color/primaryDarkGray_100</item>
+        <item name="colorSecondary">@color/secondaryGray_100</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- BlueGray_100 Theme -->
+    <style name="Theme.TimeTable.BlueGray_100" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primaryBlueGray_100</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkBlueGray_100</item>
+        <item name="colorOnPrimary">@color/primaryTextBlueGray_100</item>
+
+        <!-- Secondary brand color (buttons, switches, selected text, progress bars, links, headlines -->
+        <item name="android:textColorSecondary">@color/primaryDarkBlueGray_100</item>
+        <item name="colorSecondary">@color/secondaryBlueGray_100</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
 </resources>

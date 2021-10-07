@@ -1,5 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Purple_100 colors -->
+    <color name="primaryPurple_100">#e1bee7</color>
+    <color name="primaryLightPurple_100">#fff1ff</color>
+    <color name="primaryDarkPurple_100">#af8eb5</color>
+    <color name="primaryTextPurple_100">#000000</color>
+    <color name="secondaryPurple_100">#e1bee7</color>
+
+    <!-- Indigo_100 colors -->
+    <color name="primaryIndigo_100">#c5cae9</color>
+    <color name="primaryLightIndigo_100">#f8fdff</color>
+    <color name="primaryDarkIndigo_100">#9499b7</color>
+    <color name="primaryTextIndigo_100">#000000</color>
+    <color name="secondaryIndigo_100">#c5cae9</color>
+
+    <!-- Red_100 colors -->
+    <color name="primaryRed_100">#ffcdd2</color>
+    <color name="primaryLightRed_100">#ffffff</color>
+    <color name="primaryDarkRed_100">#cb9ca1</color>
+    <color name="primaryTextRed_100">#000000</color>
+    <color name="secondaryRed_100">#ffcdd2</color>
+
+    <!-- Pink_100 colors -->
+    <color name="primaryPink_100">#f8bbd0</color>
+    <color name="primaryLightPink_100">#ffeeff</color>
+    <color name="primaryDarkPink_100">#c48b9f</color>
+    <color name="primaryTextPink_100">#000000</color>
+    <color name="secondaryPink_100">#f8bbd0</color>
+
+    <!-- DeepPurple_100 colors -->
+    <color name="primaryDeepPurple_100">#d1c4e9</color>
+    <color name="primaryLightDeepPurple_100">#fff7ff</color>
+    <color name="primaryDarkDeepPurple_100">#a094b7</color>
+    <color name="primaryTextDeepPurple_100">#000000</color>
+    <color name="secondaryDeepPurple_100">#d1c4e9</color>
+
+    <!-- Blue_100 colors -->
+    <color name="primaryBlue_100">#bbdefb</color>
+    <color name="primaryLightBlue_100">#eeffff</color>
+    <color name="primaryDarkBlue_100">#8aacc8</color>
+    <color name="primaryTextBlue_100">#000000</color>
+    <color name="secondaryBlue_100">#bbdefb</color>
+
+    <!-- Green_100 colors -->
+    <color name="primaryGreen_100">#c8e6c9</color>
+    <color name="primaryLightGreen_100">#fbfffc</color>
+    <color name="primaryDarkGreen_100">#97b498</color>
+    <color name="primaryTextGreen_100">#000000</color>
+    <color name="secondaryGreen_100">#c8e6c9</color>
+
+    <!-- Ember_100 colors -->
+    <color name="primaryEmber_100">#ffecb3</color>
+    <color name="primaryLightEmber_100">#ffffe5</color>
+    <color name="primaryDarkEmber_100">#cbba83</color>
+    <color name="primaryTextEmber_100">#000000</color>
+    <color name="secondaryEmber_100">#ffecb3</color>
+
+    <!-- Gray_100 colors -->
+    <color name="primaryGray_100">#f5f5f5</color>
+    <color name="primaryLightGray_100">#ffffff</color>
+    <color name="primaryDarkGray_100">#c2c2c2</color>
+    <color name="primaryTextGray_100">#000000</color>
+    <color name="secondaryGray_100">#f5f5f5</color>
+
+    <!-- BlueGray_100 colors -->
+    <color name="primaryBlueGray_100">#cfd8dc</color>
+    <color name="primaryLightBlueGray_100">#ffffff</color>
+    <color name="primaryDarkBlueGray_100">#9ea7aa</color>
+    <color name="primaryTextBlueGray_100">#000000</color>
+    <color name="secondaryBlueGray_100">#cfd8dc</color>
+
+    <!-- Default Material colors -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

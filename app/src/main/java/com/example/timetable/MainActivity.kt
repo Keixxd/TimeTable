@@ -37,7 +37,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.listsPager.apply {git
+        binding.listsPager.setCurrentItem(getCurrentDayOfWeekIndex())
+
+        binding.listsPager.apply {
             adapter = PagerFragmentAdapter(this@MainActivity)
         }
 
@@ -53,12 +55,9 @@ class MainActivity : AppCompatActivity() {
             })
         tabLayoutMediator.attach()
 
-        val appActionBar = supportActionBar
-        appActionBar?.title = resources.getText(R.string.app_action_default_title)
 
-        binding.listsPager.setCurrentItem(getCurrentDayOfWeekIndex())
-
-        Log.d("info_log", "${getCurrentDayOfWeekIndex()}")
+        binding.toolbar.title = resources.getText(R.string.app_action_default_title)
+        setSupportActionBar(binding.toolbar)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
