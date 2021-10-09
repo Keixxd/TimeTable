@@ -24,8 +24,8 @@
     <string name="placeholder_short">PLACEHOLDER</string>
     <string name="teacher_name_placeholder">TEACHER_NAME_PLACEHOLDER</string>
     <string name="app_action_default_title">Расписание</string>
-    <string name="app_bar_setting_button_title">appBarSetting</string>
-    <string name="app_bar_filter_button_title">appBarFilter</string>
+    <string name="app_bar_setting_button_title">Настройки</string>
+    <string name="app_bar_filter_button_title">Выбор недели</string>
 
     <string-array name="week_days">
         <item>Понедельник</item>
@@ -36,5 +36,47 @@
         <item>Суббота</item>
         <item>Воскресенье</item>
     </string-array>
-    
+
+    <string-array name="themes_names">
+        <item>Красный</item>
+        <item>Розовый</item>
+        <item>Фиолетовый</item>
+        <item>Темно-фиолетовый</item>
+        <item>Индиго</item>
+        <item>Синий</item>
+        <item>Зеленый</item>
+        <item>Серо-голубой</item>
+    </string-array>
+
+    <string-array name="themes_names_values">
+        <item>red_100</item>
+        <item>pink_100</item>
+        <item>purple_100</item>
+        <item>deep_purple_100</item>
+        <item>indigo_100</item>
+        <item>blue_100</item>
+        <item>green_100</item>
+        <item>blue_gray_100</item>
+    </string-array>
+
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="notifications_settings_header">Оповещения</string>
+    <string name="themes_settings_header">Оформление</string>
+    <string name="settings_title">Настройки</string>
+
 </resources>

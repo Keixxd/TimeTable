@@ -7,6 +7,8 @@
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/drawable/ic_add.xml" value="0.2942708333333333" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2942708333333333" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/drawable/rectangle_rounded.xml" value="0.2942708333333333" />
+        <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/drawable/splash_background.xml" value="0.2942708333333333" />
+        <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/drawable/splash_screen_background_gradient.xml" value="0.2942708333333333" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/activity_add.xml" value="0.33" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/activity_empty_list.xml" value="0.2105978260869565" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -18,8 +20,10 @@
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/job_new.xml" value="0.25" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/list_fragment.xml" value="0.1875" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/main_list_fragment.xml" value="0.5" />
+        <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/settings_activity.xml" value="0.21240942028985507" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/layout/spinner_item.xml" value="0.25" />
         <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/menu/app_bar_menu.xml" value="0.25" />
+        <entry key="..\:/Users/ALEX1/AndroidStudioProjects/TimeTable/app/src/main/res/xml/root_preferences.xml" value="0.33" />
       </map>
     </option>
   </component>
