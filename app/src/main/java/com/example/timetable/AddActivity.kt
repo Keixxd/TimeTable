@@ -1,27 +1,17 @@
 package com.example.timetable
 
 import android.app.TimePickerDialog
-import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.format.DateUtils
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.*
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import com.example.timetable.databinding.ActivityAddBinding
 import com.example.timetable.databinding.AddEditActivityBinding
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
-import java.time.DayOfWeek
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AddActivity : AppCompatActivity() {
 
@@ -43,6 +33,9 @@ class AddActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ApplicationSettings.setApplicationTheme(theme, this)
+
         binding = AddEditActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

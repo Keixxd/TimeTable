@@ -48,10 +48,11 @@ class SettingsActivity : AppCompatActivity() {
 
                     editor.putBoolean("theme_changed", true)
                     editor.putString("theme_preference", newValue.toString())
-                    editor.commit()
+                    editor.apply()
 
                     val intent = Intent(activity?.baseContext, SettingsActivity::class.java)
                     startActivity(intent)
+                    activity?.overridePendingTransition(0,0)
                     activity?.finish()
                     return false
                 }
