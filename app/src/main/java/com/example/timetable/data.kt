@@ -15,5 +15,5 @@ data class Job(
     @ColumnInfo(name = "startTime") var startTime: String?,
     @ColumnInfo(name = "endTime") var endTime: String?,
     @ColumnInfo(name = "classroom") var classroom: String?,
-    @ColumnInfo(name = "even_week") var evenWeek: Boolean
+    @ColumnInfo(name = "even_week") var jobType: String?
     ):Serializable

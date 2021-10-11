@@ -20,6 +20,7 @@
     <string name="day_of_week_picker_default">Понедельник</string>
     <string name="even_week">Четная неделя</string>
     <string name="day_picker_dialog_title">Выберите дни недели</string>
+    <string name="job_type_picker_title">Выберите нужный тип</string>
     <string name="placeholder_long">PLACEHOLDER_PLACEHOLDER</string>
     <string name="placeholder_short">PLACEHOLDER</string>
     <string name="teacher_name_placeholder">TEACHER_NAME_PLACEHOLDER</string>
@@ -27,6 +28,16 @@
     <string name="app_bar_setting_button_title">Настройки</string>
     <string name="app_bar_filter_button_title">Выбор недели</string>
 
+    <string-array name="abbr_week_days">
+        <item>Пн</item>
+        <item>Вт</item>
+        <item>Ср</item>
+        <item>Чт</item>
+        <item>Пт</item>
+        <item>Сб</item>
+        <item>Вс</item>
+    </string-array>
+    
     <string-array name="week_days">
         <item>Понедельник</item>
         <item>Вторник</item>
@@ -35,6 +46,13 @@
         <item>Пятница</item>
         <item>Суббота</item>
         <item>Воскресенье</item>
+    </string-array>
+
+    <string-array name="job_types">
+        <item>Урок</item>
+        <item>Лекция</item>
+        <item>Практика</item>
+        <item>Лабораторная</item>
     </string-array>
 
     <string-array name="themes_names">
@@ -78,5 +96,10 @@
     <string name="notifications_settings_header">Оповещения</string>
     <string name="themes_settings_header">Оформление</string>
     <string name="settings_title">Настройки</string>
+    <string name="add_activity_group_title">Выбор дня и времени</string>
+    <string name="add_activity_group_title_2">Дополнительно</string>
+    <string name="batch_mode_switch_text">Режим заполнения</string>
+    <string name="batch_mode_switch_summary">При включении, нажатие кнопки Сохранить не закроет окно добавления, позволяя Вам добавлять подобные занятия без повторного заполнения</string>
+    <string name="add_activity_save_button">Сохранить</string>
 
 </resources>

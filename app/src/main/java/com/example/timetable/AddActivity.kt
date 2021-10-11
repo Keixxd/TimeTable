@@ -5,11 +5,17 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.format.DateUtils
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
 import com.example.timetable.databinding.ActivityAddBinding
+import com.example.timetable.databinding.AddEditActivityBinding
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
@@ -20,39 +26,47 @@ import kotlin.collections.ArrayList
 class AddActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<JobViewModel>()
-    private lateinit var binding: ActivityAddBinding
+    private lateinit var binding: AddEditActivityBinding
     private val time = Calendar.getInstance()
-    private var dayPicked = "Понедельник"
+    private lateinit var itemsList: Array<out String>
+    private lateinit var abbrWeekDaysList: Array<out String>
+    private val dayMap = mapOf(
+        0 to "Понедельник",
+        1 to "Вторник",
+        2 to "Среда",
+        3 to "Четверг",
+        4 to "Пятница",
+        5 to "Суббота",
+        6 to "Воскресенье"
+    )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddBinding.inflate(layoutInflater)
+        binding = AddEditActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val addActionBar = supportActionBar
-        addActionBar?.setDisplayHomeAsUpEnabled(true)
-        val itemsList = resources.getStringArray(R.array.week_days)
+        binding.toolbar2.title = "Добавить"
+        setSupportActionBar(binding.toolbar2)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.dayOfWeekText.text = dayPicked
+        itemsList = resources.getStringArray(R.array.job_types)
+        abbrWeekDaysList = resources.getStringArray(R.array.abbr_week_days)
+
+        initJobTypePicker()
+        initDayPicker()
+
         binding.startTimeText.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(time.time)
         binding.endTimeText.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(time.time)
 
-        initTimePickers(binding.startTimePickerLayout, binding.startTimeText)
-        initTimePickers(binding.endTimePickerLayout, binding.endTimeText)
+        initTimePickers(binding.startTimePickerCard, binding.startTimeText)
+        initTimePickers(binding.endTimePickerCard, binding.endTimeText)
 
-        initDayOfWeekPicker(itemsList)
+    }
 
-        binding.addConfirm.setOnClickListener{
-            insertJobToDatabase()
-        }
-
-        binding.addCancel.setOnClickListener {
-            onBackPressed()
-        }
-
-        binding.evenWeekCheckerLayout.setOnClickListener {
-            setCheckBoxChecked()
-        }
+    private fun initDayPicker(){
+        for(i in abbrWeekDaysList)
+            binding.dayPicker.addTab(binding.dayPicker.newTab().setText(i))
     }
 
     private fun insertJobToDatabase() {
@@ -61,11 +75,11 @@ class AddActivity : AppCompatActivity() {
         val jobClass = binding.addJobClass.text.toString()
         val jobStartTime = binding.startTimeText.text.toString()
         val jobEndTime = binding.endTimeText.text.toString()
-        val jobIsEven = binding.checkEven.isChecked
-        val dayOfWeek = dayPicked
+        val jobType = itemsList[binding.jobTypePicker.selectedTabPosition]
+        val dayOfWeek = dayMap[binding.dayPicker.selectedTabPosition]
 
         if (isInputValid(jobName, jobTeacher, jobStartTime, jobEndTime, jobClass)) {
-            val job = Job(null, dayOfWeek, jobName, jobTeacher, jobStartTime, jobEndTime, jobClass, jobIsEven)
+            val job = Job(null, dayOfWeek, jobName, jobTeacher, jobStartTime, jobEndTime, jobClass, jobType)
             viewModel.addJob(job)
             onBackPressed()
         }else{
@@ -80,9 +94,9 @@ class AddActivity : AppCompatActivity() {
                 && jobStartTime.isEmpty() && jobClass.isEmpty() && jobEndTime.isEmpty() )
     }
 
-    private fun initTimePickers(pickerLayout: LinearLayout, timeTextView: TextView){
+    private fun initTimePickers(pickerCard: CardView, timeTextView: TextView){
 
-        pickerLayout.setOnClickListener {
+        pickerCard.setOnClickListener {
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 time.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 time.set(Calendar.MINUTE, minute)
@@ -92,26 +106,24 @@ class AddActivity : AppCompatActivity() {
         }
     }
 
-    private fun initDayOfWeekPicker(itemsList: Array<out String>){
-        val picker = AlertDialog.Builder(this)
-        picker.setTitle(R.string.day_picker_dialog_title)
-            .setItems(itemsList, object: DialogInterface.OnClickListener{
-                override fun onClick(dialog: DialogInterface?, which: Int) {
-                    dayPicked = itemsList[which]
-                    binding.dayOfWeekText.text = dayPicked
-                }
-            })
-        picker.create()
-        binding.dayOfWeekPickerLayout.setOnClickListener {
-            picker.show()
+    private fun initJobTypePicker(){
+        for (i in itemsList)
+            binding.jobTypePicker.addTab(binding.jobTypePicker.newTab().setText(i))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
+        R.id.save_job -> {
+            insertJobToDatabase()
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
         }
     }
 
-    private fun setCheckBoxChecked(){
-        if(binding.checkEven.isChecked)
-            binding.checkEven.isChecked = false
-        else
-            binding.checkEven.isChecked = true
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.add_activity_menu, menu)
+        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {

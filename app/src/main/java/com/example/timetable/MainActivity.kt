@@ -60,6 +60,10 @@ class MainActivity : AppCompatActivity() {
             })
         tabLayoutMediator.attach()
 
+        binding.addButton.setOnClickListener{
+            startActivity(Intent(this, AddActivity::class.java))
+        }
+
         binding.toolbar.title = resources.getText(R.string.app_action_default_title)
         setSupportActionBar(binding.toolbar)
     }

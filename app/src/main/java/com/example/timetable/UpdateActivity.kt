@@ -64,8 +64,8 @@ class UpdateActivity: AppCompatActivity(){
         val jobIsEven = binding.checkEven.isChecked
         val dayOfWeek = dayPicked
 
-        val job = Job(id, dayOfWeek, jobName, jobTeacher, jobStartTime, jobEndTime, jobClass, jobIsEven)
-        viewModel.updateJob(job)
+        //val job = Job(id, dayOfWeek, jobName, jobTeacher, jobStartTime, jobEndTime, jobClass, jobIsEven)
+        //viewModel.updateJob(job)
         onBackPressed()
     }
 
@@ -76,7 +76,7 @@ class UpdateActivity: AppCompatActivity(){
         binding.dayOfWeekText.setText(selectedItem.dayName)
         binding.startTimeText.setText(selectedItem.startTime)
         binding.endTimeText.setText(selectedItem.endTime)
-        binding.checkEven.isChecked = selectedItem.evenWeek
+        //binding.checkEven.isChecked = selectedItem.evenWeek
     }
 
     private fun initTimePickers(pickerLayout: LinearLayout, timeTextView: TextView, timeList: List<String>){
