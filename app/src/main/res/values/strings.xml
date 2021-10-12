@@ -101,5 +101,6 @@
     <string name="batch_mode_switch_text">Режим заполнения</string>
     <string name="batch_mode_switch_summary">При включении, нажатие кнопки Сохранить не закроет окно добавления, позволяя Вам добавлять подобные занятия без повторного заполнения</string>
     <string name="add_activity_save_button">Сохранить</string>
+    <string name="update_activity_delete_button">Удалить</string>
 
 </resources>

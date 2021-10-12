@@ -26,16 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     private val NUM_PAGES = 7
     private lateinit var binding: ActivityMainBinding
-    private val dayMap = mapOf(
-        0 to "Понедельник",
-        1 to "Вторник",
-        2 to "Среда",
-        3 to "Четверг",
-        4 to "Пятница",
-        5 to "Суббота",
-        6 to "Воскресенье"
-    )
-
     private val time = Calendar.getInstance()
     private lateinit var preferences: SharedPreferences
 

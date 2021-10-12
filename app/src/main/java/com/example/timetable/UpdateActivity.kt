@@ -1,112 +1,143 @@
 package com.example.timetable
 
 import android.app.TimePickerDialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.widget.LinearLayout
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.example.timetable.databinding.ActivityAddBinding
+import androidx.cardview.widget.CardView
+import com.example.timetable.databinding.AddEditActivityBinding
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.LocalTime
 import java.util.*
 
 class UpdateActivity: AppCompatActivity(){
 
-    private lateinit var binding: ActivityAddBinding
+    private lateinit var binding: AddEditActivityBinding
     private val time = Calendar.getInstance()
-    private var dayPicked: String? = null
     private val viewModel by viewModels<JobViewModel>()
+    private lateinit var itemsList: Array<out String>
+    private lateinit var abbrWeekDaysList: Array<out String>
+    private lateinit var selectedItem: Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddBinding.inflate(layoutInflater)
+
+        setActivityTheme()
+
+        binding = AddEditActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val addActionBar = supportActionBar
-        addActionBar?.setDisplayHomeAsUpEnabled(true)
-        val itemsList = resources.getStringArray(R.array.week_days)
-        val selectedItem = intent.getSerializableExtra("selected_item") as Job
+        selectedItem = intent.getSerializableExtra("selected_item") as Job
+        val startTimeList = selectedItem.startTime?.split(":")
+        val endTimeList = selectedItem.endTime?.split(":")
 
-        dayPicked = selectedItem.dayName
-        setItemInfo(selectedItem)
+        binding.toolbar2.title = "Изменить"
+        setSupportActionBar(binding.toolbar2)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        //временное решение ???????
-        val startTimeList = binding.startTimeText.text.split(":")
-        val endTimeList = binding.endTimeText.text.split(":")
+        itemsList = resources.getStringArray(R.array.job_types)
+        abbrWeekDaysList = resources.getStringArray(R.array.abbr_week_days)
 
-        initTimePickers(binding.startTimePickerLayout, binding.startTimeText, startTimeList)
-        initTimePickers(binding.endTimePickerLayout, binding.endTimeText, endTimeList)
+        initJobTypePicker()
+        initDayPicker()
 
-        initDayOfWeekPicker(itemsList)
+        binding.startTimeText.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(time.time)
+        binding.endTimeText.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(time.time)
 
-        binding.addCancel.setOnClickListener {
-            onBackPressed()
-        }
-
-        binding.addConfirm.setOnClickListener {
-            updateJobEvent(selectedItem.uid)
-        }
+        setItemInfo()
+        initTimePickers(binding.startTimePickerCard, binding.startTimeText, startTimeList)
+        initTimePickers(binding.endTimePickerCard, binding.endTimeText, endTimeList)
 
     }
 
-    private fun updateJobEvent(id: Long?) {
+    private fun insertJobToDatabase() {
         val jobName = binding.addJobName.text.toString()
         val jobTeacher = binding.addJobTeacher.text.toString()
         val jobClass = binding.addJobClass.text.toString()
         val jobStartTime = binding.startTimeText.text.toString()
         val jobEndTime = binding.endTimeText.text.toString()
-        val jobIsEven = binding.checkEven.isChecked
-        val dayOfWeek = dayPicked
+        val jobType = itemsList[binding.jobTypePicker.selectedTabPosition]
+        val dayOfWeek = dayMap[binding.dayPicker.selectedTabPosition]
 
-        //val job = Job(id, dayOfWeek, jobName, jobTeacher, jobStartTime, jobEndTime, jobClass, jobIsEven)
-        //viewModel.updateJob(job)
+        if (isInputValid(jobName, jobTeacher, jobStartTime, jobEndTime, jobClass)) {
+            val job = Job(selectedItem.uid, dayOfWeek, jobName, jobTeacher, jobStartTime, jobEndTime, jobClass, jobType)
+            viewModel.updateJob(job)
+            onBackPressed()
+        }else{
+            Toast.makeText(this, "Заполните пустые поля", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun deleteJob(){
+        viewModel.deleteJob(selectedItem)
         onBackPressed()
     }
 
-    private fun setItemInfo(selectedItem: Job) {
+    private fun isInputValid(jobName: String, jobTeacher: String,
+                             jobStartTime: String, jobEndTime: String, jobClass: String): Boolean {
+
+        return !(jobName.isEmpty() && jobTeacher.isEmpty()
+                && jobStartTime.isEmpty() && jobClass.isEmpty() && jobEndTime.isEmpty() )
+    }
+
+    private fun setItemInfo() {
         binding.addJobName.setText(selectedItem.jobName)
         binding.addJobTeacher.setText(selectedItem.jobTeacher)
         binding.addJobClass.setText(selectedItem.classroom)
-        binding.dayOfWeekText.setText(selectedItem.dayName)
+        binding.dayPicker.getTabAt(dayMap.values.toList().binarySearch(selectedItem.dayName))
         binding.startTimeText.setText(selectedItem.startTime)
         binding.endTimeText.setText(selectedItem.endTime)
-        //binding.checkEven.isChecked = selectedItem.evenWeek
+        binding.jobTypePicker.getTabAt(itemsList.binarySearch(selectedItem.jobType))
+
+        binding.dividerLine2.visibility = View.GONE
+        binding.groupTitle2.visibility = View.GONE
+        binding.batchModeLayout.visibility = View.GONE
     }
 
-    private fun initTimePickers(pickerLayout: LinearLayout, timeTextView: TextView, timeList: List<String>){
-
-        pickerLayout.setOnClickListener {
-            time.set(Calendar.HOUR_OF_DAY, timeList[0].toInt())
-            time.set(Calendar.MINUTE, timeList[1].toInt())
+    private fun initTimePickers(pickerCard: CardView, timeTextView: TextView, timeList: List<String>?){
+        pickerCard.setOnClickListener {
+            time.set(Calendar.HOUR_OF_DAY, timeList?.get(0)!!.toInt())
+            time.set(Calendar.MINUTE, timeList.get(1).toInt())
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 time.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 time.set(Calendar.MINUTE, minute)
                 timeTextView.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(time.time)
             }
-            TimePickerDialog(this, timeSetListener, time.get(Calendar.HOUR_OF_DAY), time.get(
-                Calendar.MINUTE), true).show()
+            TimePickerDialog(this, timeSetListener, time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), true).show()
         }
     }
 
-    private fun initDayOfWeekPicker(itemsList: Array<out String>){
-        val picker = AlertDialog.Builder(this)
-        picker.setTitle(R.string.day_picker_dialog_title)
-            .setItems(itemsList, object: DialogInterface.OnClickListener{
-                override fun onClick(dialog: DialogInterface?, which: Int) {
-                    dayPicked = itemsList[which]
-                    binding.dayOfWeekText.text = dayPicked
-                }
-            })
-        picker.create()
-        binding.dayOfWeekPickerLayout.setOnClickListener {
-            picker.show()
+    private fun initDayPicker(){
+        for(i in abbrWeekDaysList)
+            binding.dayPicker.addTab(binding.dayPicker.newTab().setText(i))
+    }
+
+    private fun initJobTypePicker(){
+        for (i in itemsList)
+            binding.jobTypePicker.addTab(binding.jobTypePicker.newTab().setText(i))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
+        R.id.save_job -> {
+            insertJobToDatabase()
+            true
         }
+        R.id.delete_job ->{
+            deleteJob()
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.update_activity_menu, menu)
+        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
