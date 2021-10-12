@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         CoroutineScope(Dispatchers.Default).launch {
-            ApplicationSettings.setApplicationTheme(theme, this@MainActivity)
+            setActivityTheme()
         }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -111,9 +111,11 @@ class MainActivity : AppCompatActivity() {
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         if(preferences.getBoolean("theme_changed", false)){
             preferences.edit().putBoolean("theme_changed", false).apply()
-            ApplicationSettings.setApplicationTheme(theme, this)
+            setActivityTheme()
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }
+
+
 }

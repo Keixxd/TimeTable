@@ -20,7 +20,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch(Dispatchers.Default) {
-            ApplicationSettings.setApplicationTheme(theme, this@SettingsActivity)
+            setActivityTheme()
         }
 
 

@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.timetable.databinding.AddEditActivityBinding
+import com.example.timetable.setActivityTheme
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,7 +35,7 @@ class AddActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ApplicationSettings.setApplicationTheme(theme, this)
+        setActivityTheme()
 
         binding = AddEditActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)

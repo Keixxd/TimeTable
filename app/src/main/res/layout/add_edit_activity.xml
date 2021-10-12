@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="8"
-                    android:layout_margin="10dp"
+                    android:layout_margin="8dp"
                     app:srcCompat="@drawable/ic_job_info" />
 
                 <EditText
@@ -71,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:layout_margin="10dp"
+                    android:layout_margin="8dp"
                     app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
                 <EditText
@@ -94,9 +94,9 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
                     android:layout_weight="8"
-                    android:layout_margin="10dp"
-                    app:srcCompat="@drawable/ic_baseline_location_on_24" />
+                    app:srcCompat="@drawable/ic_baseline_meeting_room_24" />
 
                 <EditText
                     android:id="@+id/addJobClass"
@@ -171,7 +171,8 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="?android:attr/selectableItemBackground">
 
             <TextView
                 android:layout_width="match_parent"
@@ -205,7 +206,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="?android:attr/selectableItemBackground">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
