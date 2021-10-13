@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.viewModels
 import com.example.timetable.databinding.AddEditActivityBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,10 +19,11 @@ class UpdateActivity: AppCompatActivity(){
 
     private lateinit var binding: AddEditActivityBinding
     private val time = Calendar.getInstance()
-    private val viewModel by viewModels<JobViewModel>()
     private lateinit var itemsList: Array<out String>
     private lateinit var abbrWeekDaysList: Array<out String>
     private lateinit var selectedItem: Job
+    private val viewModel:
+            JobViewModel by viewModels { JobViewModelFactory(application, "job_database")}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

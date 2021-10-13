@@ -1,16 +1,13 @@
 package com.example.timetable
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class JobViewModel(application: Application): AndroidViewModel(application) {
+class JobViewModel(application: Application, name: String): AndroidViewModel(application) {
 
-    private val jobDao = JobDatabase.getDatabase(application).jobDao()
+    private val jobDao = JobDatabase.getDatabase(application, name).jobDao()
     private val jobRepository: JobRepository = JobRepository(jobDao)
 
     fun getDayData(dayName: String?): LiveData<List<Job>>{
@@ -32,6 +29,20 @@ class JobViewModel(application: Application): AndroidViewModel(application) {
     fun deleteJob(job: Job){
         viewModelScope.launch(Dispatchers.IO) {
             jobRepository.deleteJob(job)
+        }
+    }
+}
+
+class JobViewModelFactory(application: Application, name: String): ViewModelProvider.Factory{
+
+    private val factoryApplication = application
+    private val factoryName = name
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        try {
+            return JobViewModel(factoryApplication, factoryName) as T
+        }catch (e: Exception){
+            throw e
         }
     }
 }

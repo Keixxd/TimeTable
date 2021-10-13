@@ -76,11 +76,21 @@
                     android:ellipsize="end"
                     android:maxLength="32"
                     android:maxLines="1"
-                    android:text="@string/teacher_name_placeholder"
+                    android:text="@string/placeholder_long"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/jobType"
+                    android:layout_marginTop="2dp"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_short"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/jobNameText" />
 
                 <ImageView
                     android:id="@+id/imageView"

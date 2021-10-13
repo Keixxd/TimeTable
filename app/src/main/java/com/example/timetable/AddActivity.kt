@@ -16,11 +16,12 @@ import java.util.*
 
 class AddActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<JobViewModel>()
     private lateinit var binding: AddEditActivityBinding
     private val time = Calendar.getInstance()
     private lateinit var itemsList: Array<out String>
     private lateinit var abbrWeekDaysList: Array<out String>
+    private val viewModel:
+            JobViewModel by viewModels { JobViewModelFactory(application, "job_database")}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

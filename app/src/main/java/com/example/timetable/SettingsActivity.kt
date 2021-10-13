@@ -23,7 +23,6 @@ class SettingsActivity : AppCompatActivity() {
             setActivityTheme()
         }
 
-
         binding = SettingsActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.settingsToolBar)

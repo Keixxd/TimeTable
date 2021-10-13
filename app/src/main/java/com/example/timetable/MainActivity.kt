@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             })
         tabLayoutMediator.attach()
 
+
         binding.addButton.setOnClickListener{
             startActivity(Intent(this, AddActivity::class.java))
         }

@@ -21,6 +21,7 @@ class JobListAdapter(val context: Context): RecyclerView.Adapter<JobListAdapter.
             binding.jobNameText.text = jobList[adapterPosition].jobName
             binding.jobTeacherText.text = jobList[adapterPosition].jobTeacher
             binding.jobClassText.text = jobList[adapterPosition].classroom
+            binding.jobType.text = jobList[adapterPosition].jobType
             binding.jobCard.setOnClickListener{
                 val intent = Intent(context, UpdateActivity::class.java)
                 intent.putExtra("selected_item", jobList[adapterPosition])

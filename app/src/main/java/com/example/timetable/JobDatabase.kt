@@ -14,7 +14,7 @@ abstract class JobDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: JobDatabase? = null
 
-        fun getDatabase(context: Context): JobDatabase{
+        fun getDatabase(context: Context, dataBaseName: String): JobDatabase{
             val tempInstance = INSTANCE
             if(tempInstance != null)
                 return tempInstance
@@ -22,7 +22,7 @@ abstract class JobDatabase: RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     JobDatabase::class.java,
-                    "job_database"
+                    dataBaseName
                 ).build()
                 INSTANCE = instance
                 return instance
