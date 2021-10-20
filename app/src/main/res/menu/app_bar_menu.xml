@@ -8,9 +8,4 @@
         android:id="@+id/action_filter"
         app:showAsAction="ifRoom"/>
 
-    <item
-        android:title="@string/app_bar_setting_button_title"
-        android:icon="@drawable/ic_baseline_settings_24"
-        android:id="@+id/action_settings"
-        app:showAsAction="ifRoom" />
 </menu>

@@ -22,8 +22,7 @@ class UpdateActivity: AppCompatActivity(){
     private lateinit var itemsList: Array<out String>
     private lateinit var abbrWeekDaysList: Array<out String>
     private lateinit var selectedItem: Job
-    private val viewModel:
-            JobViewModel by viewModels { JobViewModelFactory(application, "job_database")}
+    private val viewModel by viewModels<JobViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +33,7 @@ class UpdateActivity: AppCompatActivity(){
         setContentView(binding.root)
 
         selectedItem = intent.getSerializableExtra("selected_item") as Job
+        viewModel.getDatabaseNameObservable().value = intent.getStringExtra("databaseName")
         val startTimeList = selectedItem.startTime?.split(":")
         val endTimeList = selectedItem.endTime?.split(":")
 
@@ -90,10 +90,10 @@ class UpdateActivity: AppCompatActivity(){
         binding.addJobName.setText(selectedItem.jobName)
         binding.addJobTeacher.setText(selectedItem.jobTeacher)
         binding.addJobClass.setText(selectedItem.classroom)
-        binding.dayPicker.getTabAt(dayMap.values.toList().binarySearch(selectedItem.dayName))
+        binding.dayPicker.getTabAt(dayMap.values.toList().binarySearch(selectedItem.dayName))!!.select()
         binding.startTimeText.setText(selectedItem.startTime)
         binding.endTimeText.setText(selectedItem.endTime)
-        binding.jobTypePicker.getTabAt(itemsList.binarySearch(selectedItem.jobType))
+        binding.jobTypePicker.getTabAt(itemsList.binarySearch(selectedItem.jobType))!!.select()
 
         binding.dividerLine2.visibility = View.GONE
         binding.groupTitle2.visibility = View.GONE

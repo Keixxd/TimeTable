@@ -27,3 +27,5 @@ val dayMap = mapOf(
     5 to "Суббота",
     6 to "Воскресенье"
 )
+
+val NUM_PAGES = 7

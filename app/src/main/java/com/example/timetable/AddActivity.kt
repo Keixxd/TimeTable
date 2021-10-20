@@ -2,6 +2,7 @@ package com.example.timetable
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -20,13 +21,14 @@ class AddActivity : AppCompatActivity() {
     private val time = Calendar.getInstance()
     private lateinit var itemsList: Array<out String>
     private lateinit var abbrWeekDaysList: Array<out String>
-    private val viewModel:
-            JobViewModel by viewModels { JobViewModelFactory(application, "job_database")}
+    private val viewModel by viewModels<JobViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setActivityTheme()
+
+        viewModel.getDatabaseNameObservable().value = intent.getStringExtra("databaseName")
 
         binding = AddEditActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)

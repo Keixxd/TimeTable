@@ -4,45 +4,38 @@ import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.Serializable
 
-class JobViewModel(application: Application, name: String): AndroidViewModel(application) {
+class JobViewModel(application: Application): AndroidViewModel(application), Serializable {
 
-    private val jobDao = JobDatabase.getDatabase(application, name).jobDao()
-    private val jobRepository: JobRepository = JobRepository(jobDao)
+    private val databaseName = MutableLiveData<String?>()
+    private val viewModelApplication = application
+
+    fun getDatabaseNameObservable():MutableLiveData<String?> = databaseName
 
     fun getDayData(dayName: String?): LiveData<List<Job>>{
-        return jobRepository.getDayJobs(dayName)
+        return JobRepository(JobDatabase.getDatabase(viewModelApplication, databaseName.value as String)
+            .jobDao()).getDayJobs(dayName)
     }
 
     fun addJob(job: Job){
         viewModelScope.launch(Dispatchers.IO) {
-            jobRepository.addJob(job)
+            JobRepository(JobDatabase.getDatabase(viewModelApplication, databaseName.value as String)
+                .jobDao()).addJob(job)
         }
     }
 
     fun updateJob(job: Job){
         viewModelScope.launch(Dispatchers.IO) {
-            jobRepository.updateJob(job)
+            JobRepository(JobDatabase.getDatabase(viewModelApplication, databaseName.value as String)
+                .jobDao()).updateJob(job)
         }
     }
 
     fun deleteJob(job: Job){
         viewModelScope.launch(Dispatchers.IO) {
-            jobRepository.deleteJob(job)
-        }
-    }
-}
-
-class JobViewModelFactory(application: Application, name: String): ViewModelProvider.Factory{
-
-    private val factoryApplication = application
-    private val factoryName = name
-
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        try {
-            return JobViewModel(factoryApplication, factoryName) as T
-        }catch (e: Exception){
-            throw e
+            JobRepository(JobDatabase.getDatabase(viewModelApplication, databaseName.value as String)
+                .jobDao()).deleteJob(job)
         }
     }
 }

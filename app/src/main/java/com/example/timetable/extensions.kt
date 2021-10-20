@@ -3,6 +3,11 @@ package com.example.timetable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 
+/*
+*   basicly - just an extension function, which applying style to the current application theme,
+*   depending on which style was chose in SettingsActivity.
+*/
+
 fun AppCompatActivity.setActivityTheme(){
     val pref = PreferenceManager.getDefaultSharedPreferences(this)
     when(pref.getString("theme_preference", "indigo_100")){

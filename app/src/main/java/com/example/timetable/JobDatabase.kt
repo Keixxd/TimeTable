@@ -16,9 +16,10 @@ abstract class JobDatabase: RoomDatabase() {
 
         fun getDatabase(context: Context, dataBaseName: String): JobDatabase{
             val tempInstance = INSTANCE
-            if(tempInstance != null)
+            if(tempInstance != null && tempInstance.openHelper.databaseName.equals(dataBaseName))
                 return tempInstance
             synchronized(this){
+                tempInstance?.close()
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     JobDatabase::class.java,

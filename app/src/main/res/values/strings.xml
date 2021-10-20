@@ -37,7 +37,7 @@
         <item>Сб</item>
         <item>Вс</item>
     </string-array>
-    
+
     <string-array name="week_days">
         <item>Понедельник</item>
         <item>Вторник</item>
@@ -102,5 +102,21 @@
     <string name="batch_mode_switch_summary">При включении, нажатие кнопки Сохранить не закроет окно добавления, позволяя Вам добавлять подобные занятия без повторного заполнения</string>
     <string name="add_activity_save_button">Сохранить</string>
     <string name="update_activity_delete_button">Удалить</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="close">close</string>
+    <string name="open">open</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="add_table_dialog_title">Создать расписание</string>
+    <string name="add_table_dialog_et_hint">Название расписания</string>
 
 </resources>

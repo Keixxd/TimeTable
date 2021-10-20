@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.timetable.databinding.JobNewBinding
 
-class JobListAdapter(val context: Context): RecyclerView.Adapter<JobListAdapter.JobViewHolder>() {
+class JobListAdapter(private val context: Context, private val viewModel: JobViewModel): RecyclerView.Adapter<JobListAdapter.JobViewHolder>() {
 
     private var jobList = emptyList<Job>()
     private val EMPTY_LIST = 0
@@ -25,6 +25,7 @@ class JobListAdapter(val context: Context): RecyclerView.Adapter<JobListAdapter.
             binding.jobCard.setOnClickListener{
                 val intent = Intent(context, UpdateActivity::class.java)
                 intent.putExtra("selected_item", jobList[adapterPosition])
+                    .putExtra("databaseName", viewModel.getDatabaseNameObservable().value)
                 startActivity(context, intent, null)
             }
         }

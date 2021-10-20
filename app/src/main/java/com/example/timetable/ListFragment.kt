@@ -12,11 +12,9 @@ import com.example.timetable.databinding.MainListFragmentBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ListFragment(val dayName: String?): Fragment() {
+class ListFragment(val dayName: String?, val viewModel: JobViewModel): Fragment() {
 
     private lateinit var binding: MainListFragmentBinding
-    private val viewModel:
-            JobViewModel by viewModels { JobViewModelFactory(requireActivity().application, "job_database")}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +28,7 @@ class ListFragment(val dayName: String?): Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = JobListAdapter(requireContext())
+        val adapter = JobListAdapter(requireContext(), viewModel)
         binding.jobsList.apply {
             layoutManager = LinearLayoutManager(context)
             binding.jobsList.adapter = adapter
