@@ -1,6 +1,7 @@
-package com.example.timetable
+package com.example.timetable.model
 
 import androidx.lifecycle.LiveData
+import com.example.timetable.Job
 
 class JobRepository(private val jobDao: JobDao) {
 

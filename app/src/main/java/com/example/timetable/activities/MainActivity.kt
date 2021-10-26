@@ -1,4 +1,4 @@
-package com.example.timetable
+package com.example.timetable.activities
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -8,15 +8,22 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.view.forEach
+import androidx.core.view.get
 import androidx.preference.PreferenceManager
+import com.example.timetable.*
+import com.example.timetable.adapters.PagerFragmentAdapter
 import com.example.timetable.databinding.DrawerLayoutBinding
+import com.example.timetable.model.TableParametersResultContract
+import com.example.timetable.viewmodels.JobViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.example.timetable.activityResultsTypes
 import kotlinx.coroutines.*
 import java.io.File
 import java.util.*
@@ -27,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private val time = Calendar.getInstance()
     private lateinit var preferences: SharedPreferences
     private val viewModel by viewModels<JobViewModel>()
+    private lateinit var startForResult: ActivityResultLauncher<String?>
     private var tablesList: List<String>? = null
 
 
@@ -48,9 +56,12 @@ class MainActivity : AppCompatActivity() {
         *   will check this later
         */
 
-        CoroutineScope(Dispatchers.Default).launch {
+        registerForResultActivity()
+        setActivityTheme()
+
+        /*CoroutineScope(Dispatchers.Default).launch {
             setActivityTheme()
-        }
+        }*/
 
         binding = DrawerLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -159,7 +170,6 @@ class MainActivity : AppCompatActivity() {
                 .setPositiveButton(R.string.ok, object : DialogInterface.OnClickListener {
                     override fun onClick(dialog: DialogInterface?, which: Int) {
                         val editText = dialogView.findViewById<EditText>(R.id.editTextTableName)
-
                         if (!editText.text.toString().isEmpty()) {
                             addItemInNavigationView(editText)
                             viewModel.getDatabaseNameObservable().value = editText.text.toString()
@@ -193,9 +203,19 @@ class MainActivity : AppCompatActivity() {
                     Menu.NONE,
                     table
                 ).setOnMenuItemClickListener { menuItem ->
+                    setCheckMenuButton(menu, menuItem)
                     switchToNewTable(menuItem)
                     true
                 }
+            menu.get(0).setChecked(true)
+        }
+
+        private fun setCheckMenuButton(menu: Menu, menuItem: MenuItem){
+            menu.forEach {
+                if(it.isChecked)
+                    it.setChecked(false)
+                menuItem.setChecked(true)
+            }
         }
 
         fun switchToNewTable(menuItem: MenuItem){
@@ -212,8 +232,42 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
             true
         }
+        R.id.action_edit_table -> {
+            startEditTableParamsActivity()
+            true
+        }
         else ->
             super.onOptionsItemSelected(item)
+    }
+
+    private fun registerForResultActivity(){
+        startForResult = registerForActivityResult(TableParametersResultContract()){ result: String? ->
+            when(result){
+                activityResultsTypes.ACTIVITY_CANCELED.code -> {}
+                activityResultsTypes.TABLE_DELETED.code -> {}
+                activityResultsTypes.TABLE_CLEARED.code -> {}
+                else -> {
+                    updateNavViewMenu(result)
+                    viewModel.getDatabaseNameObservable().value = result
+                    binding.main.listsPager.adapter = PagerFragmentAdapter(this@MainActivity, viewModel)
+                }
+
+
+            }
+        }
+    }
+
+    private fun updateNavViewMenu(result: String?) {
+        with(binding){
+            navView.menu[0].subMenu.forEach {
+                if(it.title.equals(viewModel.getDatabaseNameObservable().value))
+                    it.title = result
+            }
+        }
+    }
+
+    private fun startEditTableParamsActivity() {
+        startForResult.launch(viewModel.getDatabaseNameObservable().value)
     }
 
     /*

@@ -29,3 +29,9 @@ val dayMap = mapOf(
 )
 
 val NUM_PAGES = 7
+
+enum class activityResultsTypes(val code: String?){
+    TABLE_CLEARED("TABLE_CLEARED"),
+    TABLE_DELETED("TABLE_DELETED"),
+    ACTIVITY_CANCELED(null)
+}

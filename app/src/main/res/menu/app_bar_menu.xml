@@ -8,4 +8,12 @@
         android:id="@+id/action_filter"
         app:showAsAction="ifRoom"/>
 
+    <item
+        android:id="@+id/action_edit_table"
+        android:title="@string/app_bar_edit_table_button_title"
+        android:icon="@drawable/ic_baseline_edit_24"
+        app:showAsAction="ifRoom"
+        />
+
+
 </menu>

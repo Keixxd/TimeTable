@@ -118,5 +118,13 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="add_table_dialog_title">Создать расписание</string>
     <string name="add_table_dialog_et_hint">Название расписания</string>
+    <string name="app_bar_edit_table_button_title">Редактировать расписание</string>
+    <string name="edit_timetable_dialog_title">Параметры расписания</string>
+    <string name="timetable_name_edit_dialog_string">Название расписания</string>
+    <string name="delete">Удалить</string>
+    <string name="timetable_name_hint">Название</string>
+    <string name="main_group_parameters_title">Основное</string>
+    <string name="extra_group_params_title">Дополнительно</string>
+    <string name="clear_timetable_card_text">Очистить расписание</string>
 
 </resources>

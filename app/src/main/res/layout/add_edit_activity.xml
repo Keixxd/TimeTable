@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="?attr/colorPrimaryDark"
-    tools:context=".AddActivity">
+    tools:context=".activities.AddActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -48,6 +48,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="8"
                     android:layout_margin="8dp"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_job_info" />
 
                 <EditText
@@ -72,6 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:layout_margin="8dp"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
                 <EditText
@@ -96,6 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_weight="8"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_baseline_meeting_room_24" />
 
                 <EditText

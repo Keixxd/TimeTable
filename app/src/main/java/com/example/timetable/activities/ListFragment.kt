@@ -1,14 +1,15 @@
-package com.example.timetable
+package com.example.timetable.activities
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.timetable.adapters.JobListAdapter
 import com.example.timetable.databinding.MainListFragmentBinding
+import com.example.timetable.viewmodels.JobViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -38,14 +39,23 @@ class ListFragment(val dayName: String?, val viewModel: JobViewModel): Fragment(
             adapter.setData(dayData)
 
             viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){
-                if(adapter.itemCount > 0){
-                    binding.textView.visibility = View.GONE
-                    binding.jobsList.visibility = View.VISIBLE
-                }else{
-                    binding.jobsList.visibility = View.GONE
-                    binding.textView.visibility = View.VISIBLE
+                when(adapter.itemCount){
+                    0 -> setListShown(false)
+                    else -> setListShown(true)
                 }
             }
         })
+    }
+
+    private fun setListShown(flag: Boolean){
+        with(binding){
+            if(flag) {
+                textView.visibility = View.GONE
+                jobsList.visibility = View.VISIBLE
+            }else{
+                textView.visibility = View.VISIBLE
+                jobsList.visibility = View.GONE
+            }
+        }
     }
 }

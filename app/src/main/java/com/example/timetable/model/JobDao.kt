@@ -1,9 +1,9 @@
-package com.example.timetable
+package com.example.timetable.model
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
+import com.example.timetable.Job
 
 @Dao
 interface JobDao {
