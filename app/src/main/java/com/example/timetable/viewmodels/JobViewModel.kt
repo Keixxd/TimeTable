@@ -45,4 +45,12 @@ class JobViewModel(application: Application): AndroidViewModel(application), Ser
                 .jobDao()).deleteJob(job)
         }
     }
+
+    fun clearTable(){
+        viewModelScope.launch(Dispatchers.IO) {
+            JobRepository(
+                JobDatabase.getDatabase(viewModelApplication, databaseName.value as String)
+                    .jobDao()).clearTable()
+        }
+    }
 }

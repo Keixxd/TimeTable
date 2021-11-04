@@ -126,5 +126,6 @@
     <string name="main_group_parameters_title">Основное</string>
     <string name="extra_group_params_title">Дополнительно</string>
     <string name="clear_timetable_card_text">Очистить расписание</string>
+    <string name="delete_timetable">Удалить расписание</string>
 
 </resources>

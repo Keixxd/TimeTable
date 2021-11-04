@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -58,33 +59,53 @@ class UpdateActivity: AppCompatActivity(){
     }
 
     private fun insertJobToDatabase() {
-        val jobName = binding.addJobName.text.toString()
-        val jobTeacher = binding.addJobTeacher.text.toString()
-        val jobClass = binding.addJobClass.text.toString()
-        val jobStartTime = binding.startTimeText.text.toString()
-        val jobEndTime = binding.endTimeText.text.toString()
-        val jobType = itemsList[binding.jobTypePicker.selectedTabPosition]
-        val dayOfWeek = dayMap[binding.dayPicker.selectedTabPosition]
-
-        if (isInputValid(jobName, jobTeacher, jobStartTime, jobEndTime, jobClass)) {
-            val job = Job(selectedItem.uid, dayOfWeek, jobName, jobTeacher, jobStartTime, jobEndTime, jobClass, jobType)
-            viewModel.updateJob(job)
-            onBackPressed()
-        }else{
-            Toast.makeText(this, "Заполните пустые поля", Toast.LENGTH_SHORT).show()
+        with(binding) {
+            if(isInputValid(
+                    addJobName.text.toString(),
+                    addJobTeacher.text.toString(),
+                    addJobClass.text.toString()
+                )){
+                viewModel.updateJob(Job(
+                    selectedItem.uid,
+                    dayMap[dayPicker.selectedTabPosition],
+                    addJobName.text.toString(),
+                    addJobTeacher.text.toString(),
+                    startTimeText.text.toString(),
+                    endTimeText.text.toString(),
+                    addJobClass.text.toString(),
+                    itemsList[binding.jobTypePicker.selectedTabPosition]
+                ))
+            }else{
+                showErrorDrawables()
+                Toast.makeText(this@UpdateActivity, "Заполните пустые поля", Toast.LENGTH_LONG).show()
+            }
         }
     }
+
+    private fun showErrorDrawables(){
+        with(binding) {
+
+            val checkState: (EditText) -> Unit = { et ->
+                if(et.text.isBlank())
+                    et.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_baseline_error_24, 0)
+                else
+                    et.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,0, 0)
+            }
+
+            checkState(addJobName)
+            checkState(addJobTeacher)
+            checkState(addJobClass)
+        }
+    }
+
+    private fun isInputValid(jobName: String,
+                             jobTeacher: String,
+                             jobClass: String
+    ): Boolean = !(jobName.isBlank() || jobTeacher.isBlank() || jobClass.isBlank())
 
     private fun deleteJob(){
         viewModel.deleteJob(selectedItem)
         onBackPressed()
-    }
-
-    private fun isInputValid(jobName: String, jobTeacher: String,
-                             jobStartTime: String, jobEndTime: String, jobClass: String): Boolean {
-
-        return !(jobName.isEmpty() && jobTeacher.isEmpty()
-                && jobStartTime.isEmpty() && jobClass.isEmpty() && jobEndTime.isEmpty() )
     }
 
     private fun setContainersData() {

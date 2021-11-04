@@ -1,6 +1,7 @@
 package com.example.timetable.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,27 @@ class ListFragment(val dayName: String?, val viewModel: JobViewModel): Fragment(
             binding.jobsList.adapter = adapter
         }
 
+        viewModel.apply {
+            getDatabaseNameObservable().observe(viewLifecycleOwner, {tableName ->
+                Log.d("info_log", tableName as String)
+                Log.d("info_log", dayName as String)
+                getDayData(dayName).observe(viewLifecycleOwner, { dayData ->
+                    adapter.setData(dayData)
+
+                    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){
+                        when(adapter.itemCount){
+                            0 -> setListShown(false)
+                            else -> setListShown(true)
+                        }
+                    }
+                })
+            })
+        }
+
+        /*viewModel.getDatabaseNameObservable().observe(viewLifecycleOwner, {
+
+        })
+
         viewModel.getDayData(dayName).observe(viewLifecycleOwner, {dayData ->
             adapter.setData(dayData)
 
@@ -44,7 +66,7 @@ class ListFragment(val dayName: String?, val viewModel: JobViewModel): Fragment(
                     else -> setListShown(true)
                 }
             }
-        })
+        })*/
     }
 
     private fun setListShown(flag: Boolean){

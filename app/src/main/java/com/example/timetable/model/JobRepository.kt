@@ -22,4 +22,8 @@ class JobRepository(private val jobDao: JobDao) {
     suspend fun deleteJob(job: Job){
         jobDao.deleteJob(job)
     }
+
+    suspend fun clearTable(){
+        jobDao.clearTable()
+    }
 }

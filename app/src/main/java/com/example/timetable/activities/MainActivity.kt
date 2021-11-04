@@ -1,17 +1,14 @@
 package com.example.timetable.activities
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.core.view.get
@@ -23,7 +20,6 @@ import com.example.timetable.model.TableParametersResultContract
 import com.example.timetable.viewmodels.JobViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.example.timetable.activityResultsTypes
 import kotlinx.coroutines.*
 import java.io.File
 import java.util.*
@@ -36,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<JobViewModel>()
     private lateinit var startForResult: ActivityResultLauncher<String?>
     private var tablesList: List<String>? = null
+    private lateinit var navView: MainActivityNavigationView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,9 +63,11 @@ class MainActivity : AppCompatActivity() {
         binding = DrawerLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        NavigationViewBehavior().onLoadItemsInNavigationView(tablesList)
+        //NavigationViewBehavior().onLoadItemsInNavigationView(tablesList)
 
         initViewModel()
+        navView = MainActivityNavigationView(binding, this, viewModel)
+        navView.onLoadItemsInNavigationView(tablesList)
         bindViews()
     }
 
@@ -123,105 +122,23 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
 
         //and then navigation view
-        NavigationViewBehavior().setUpNavigationView()
 
-    }
+        binding.navView.setNavigationItemSelectedListener {
 
-    /*
-    *   NavigationViewBehavior class responsible for Navigation View behavior, and also
-    *   view's buttons.
-    *   the reason it is an inner class is that there is no need in passing through activity instance,
-    *   making to write it more simpler and faster.
-    *
-    *   every time we add a new table, it also switch us to it, changing PagerAdapter in ViewPager, thereby
-    *   opening new database with provided name.
-    *
-    */
-
-    private inner class NavigationViewBehavior {
-
-        fun setUpNavigationView(){
-            binding.navView.setNavigationItemSelectedListener {
-
-                when (it.itemId) {
-                    R.id.nav_add_table ->
-                        NavigationViewBehavior().onBuildAddItemDialog()
-                    R.id.nav_settings -> {
-                        val job = CoroutineScope(Dispatchers.Default).launch {
-                            startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
-                        }
-                        if (job.isCompleted)
-                            binding.drawerLayout.closeDrawers()
+            when (it.itemId) {
+                R.id.nav_add_table ->
+                    navView.onBuildAddItemDialog()
+                R.id.nav_settings -> {
+                    val job = CoroutineScope(Dispatchers.Default).launch {
+                        startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
                     }
+                    if (job.isCompleted)
+                        binding.drawerLayout.closeDrawers()
                 }
-                true
             }
+            true
         }
 
-        //dialogbuilder hell
-
-        fun onBuildAddItemDialog() {
-            val builder = AlertDialog.Builder(this@MainActivity)
-            val dialogView = layoutInflater
-                .inflate(R.layout.add_job_table_dialog, null, false)
-            builder.setTitle(getString(R.string.add_table_dialog_title))
-                .setView(dialogView)
-                .setCancelable(true)
-                .setPositiveButton(R.string.ok, object : DialogInterface.OnClickListener {
-                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                        val editText = dialogView.findViewById<EditText>(R.id.editTextTableName)
-                        if (!editText.text.toString().isEmpty()) {
-                            addItemInNavigationView(editText)
-                            viewModel.getDatabaseNameObservable().value = editText.text.toString()
-                            binding.main.listsPager.adapter = PagerFragmentAdapter(this@MainActivity, viewModel)
-                        }
-                    }
-                })
-                .show()
-            binding.drawerLayout.closeDrawers()
-        }
-
-        private fun addItemInNavigationView(editText: EditText) {
-            val menu = binding.navView.menu.getItem(0).subMenu
-            menu.add(
-                R.id.item_group,
-                Menu.NONE,
-                Menu.NONE,
-                editText.text.toString()
-            ).setOnMenuItemClickListener { menuItem ->
-                switchToNewTable(menuItem)
-                true
-            }
-        }
-
-        fun onLoadItemsInNavigationView(tablesList: List<String>?) {
-            val menu = binding.navView.menu.getItem(0).subMenu
-            for (table in tablesList!!)
-                menu.add(
-                    R.id.item_group,
-                    Menu.NONE,
-                    Menu.NONE,
-                    table
-                ).setOnMenuItemClickListener { menuItem ->
-                    setCheckMenuButton(menu, menuItem)
-                    switchToNewTable(menuItem)
-                    true
-                }
-            menu.get(0).setChecked(true)
-        }
-
-        private fun setCheckMenuButton(menu: Menu, menuItem: MenuItem){
-            menu.forEach {
-                if(it.isChecked)
-                    it.setChecked(false)
-                menuItem.setChecked(true)
-            }
-        }
-
-        fun switchToNewTable(menuItem: MenuItem){
-            viewModel.getDatabaseNameObservable().value = menuItem.title.toString()
-            binding.main.listsPager.adapter = PagerFragmentAdapter(this@MainActivity, viewModel)
-        }
     }
 
     //logic for out application bar
@@ -245,14 +162,12 @@ class MainActivity : AppCompatActivity() {
             when(result){
                 activityResultsTypes.ACTIVITY_CANCELED.code -> {}
                 activityResultsTypes.TABLE_DELETED.code -> {}
-                activityResultsTypes.TABLE_CLEARED.code -> {}
+                activityResultsTypes.TABLE_CLEARED.code -> {binding.main.listsPager.adapter?.notifyDataSetChanged()}
                 else -> {
                     updateNavViewMenu(result)
                     viewModel.getDatabaseNameObservable().value = result
-                    binding.main.listsPager.adapter = PagerFragmentAdapter(this@MainActivity, viewModel)
+                    binding.main.listsPager.adapter?.notifyDataSetChanged()
                 }
-
-
             }
         }
     }
