@@ -1,10 +1,10 @@
-package com.example.timetable.viewmodels
+package com.example.timetable.ui.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.timetable.Job
-import com.example.timetable.model.JobDatabase
-import com.example.timetable.model.JobRepository
+import com.example.timetable.data.database.JobDatabase
+import com.example.timetable.data.repository.JobRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.Serializable

@@ -1,4 +1,4 @@
-package com.example.timetable.activities
+package com.example.timetable.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.example.timetable.R
 import com.example.timetable.databinding.SettingsActivityBinding
-import com.example.timetable.setActivityTheme
+import com.example.timetable.utils.setActivityTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

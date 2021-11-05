@@ -1,4 +1,4 @@
-package com.example.timetable.activities
+package com.example.timetable.ui.activities
 
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.timetable.adapters.JobListAdapter
+import com.example.timetable.ui.adapters.JobListAdapter
 import com.example.timetable.databinding.MainListFragmentBinding
-import com.example.timetable.viewmodels.JobViewModel
+import com.example.timetable.ui.viewmodels.JobViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

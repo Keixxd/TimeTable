@@ -1,4 +1,4 @@
-package com.example.timetable.activities
+package com.example.timetable.ui.activities
 
 import android.app.AlertDialog
 import android.content.Context
@@ -11,7 +11,7 @@ import androidx.core.view.forEach
 import androidx.core.view.get
 import com.example.timetable.R
 import com.example.timetable.databinding.DrawerLayoutBinding
-import com.example.timetable.viewmodels.JobViewModel
+import com.example.timetable.ui.viewmodels.JobViewModel
 
 /*
   *   MainActivityNavigationView class responsible for Navigation View behavior, and also

@@ -1,4 +1,4 @@
-package com.example.timetable.activities
+package com.example.timetable.ui.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -11,8 +11,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.timetable.R
 import com.example.timetable.databinding.TableParamsActivityBinding
-import com.example.timetable.setActivityTheme
-import com.example.timetable.viewmodels.JobViewModel
+import com.example.timetable.utils.setActivityTheme
+import com.example.timetable.ui.viewmodels.JobViewModel
 import java.io.File
 
 class TableParametersActivity: AppCompatActivity() {

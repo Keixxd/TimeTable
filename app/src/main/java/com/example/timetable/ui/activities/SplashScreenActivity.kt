@@ -1,4 +1,4 @@
-package com.example.timetable.activities
+package com.example.timetable.ui.activities
 
 import android.content.Intent
 import android.os.Bundle

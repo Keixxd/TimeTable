@@ -1,4 +1,4 @@
-package com.example.timetable.model
+package com.example.timetable.data.database
 
 import android.content.Context
 import androidx.room.Database

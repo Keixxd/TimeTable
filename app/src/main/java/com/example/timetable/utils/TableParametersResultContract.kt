@@ -1,10 +1,10 @@
-package com.example.timetable.model
+package com.example.timetable.utils
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
-import com.example.timetable.activities.TableParametersActivity
+import com.example.timetable.ui.activities.TableParametersActivity
 
 class TableParametersResultContract: ActivityResultContract<String, String?>() {
 

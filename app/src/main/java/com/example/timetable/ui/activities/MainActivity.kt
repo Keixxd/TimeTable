@@ -1,4 +1,4 @@
-package com.example.timetable.activities
+package com.example.timetable.ui.activities
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,14 +10,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.forEach
-import androidx.core.view.get
 import androidx.preference.PreferenceManager
 import com.example.timetable.*
-import com.example.timetable.adapters.PagerFragmentAdapter
+import com.example.timetable.ui.adapters.PagerFragmentAdapter
 import com.example.timetable.databinding.DrawerLayoutBinding
-import com.example.timetable.model.TableParametersResultContract
-import com.example.timetable.viewmodels.JobViewModel
+import com.example.timetable.utils.TableParametersResultContract
+import com.example.timetable.ui.viewmodels.JobViewModel
+import com.example.timetable.utils.setActivityTheme
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.*
@@ -72,8 +71,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel(){
-        /*viewModel = ViewModelProvider(this, JobViewModelFactory(application))
-            .get(JobViewModel::class.java)*/
         viewModel.getDatabaseNameObservable().value = tablesList!![0]
     }
 

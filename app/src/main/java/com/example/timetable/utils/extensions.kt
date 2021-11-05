@@ -1,7 +1,8 @@
-package com.example.timetable
+package com.example.timetable.utils
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
+import com.example.timetable.R
 
 /*
 *   basicly - just an extension function, which applying style to the current application theme,

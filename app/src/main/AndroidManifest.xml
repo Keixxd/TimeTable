@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true" >
         <activity
-            android:name=".activities.SplashScreenActivity"
+            android:name="com.example.timetable.ui.activities.SplashScreenActivity"
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -19,28 +19,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name="com.example.timetable.ui.activities.SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_settings"
             android:theme="@style/Theme.TimeTable.Indigo_100"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activities.UpdateActivity"
+            android:name="com.example.timetable.ui.activities.UpdateActivity"
             android:exported="true"
             android:theme="@style/Theme.TimeTable.Indigo_100"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activities.AddActivity"
+            android:name="com.example.timetable.ui.activities.AddActivity"
             android:exported="true"
             android:theme="@style/Theme.TimeTable.Indigo_100"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.example.timetable.ui.activities.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.TimeTable.Indigo_100"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activities.TableParametersActivity"
+            android:name="com.example.timetable.ui.activities.TableParametersActivity"
             android:exported="true"
             android:theme="@style/Theme.TimeTable.Indigo_100">
         </activity>

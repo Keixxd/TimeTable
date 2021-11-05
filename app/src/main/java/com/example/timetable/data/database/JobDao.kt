@@ -1,4 +1,4 @@
-package com.example.timetable.model
+package com.example.timetable.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
