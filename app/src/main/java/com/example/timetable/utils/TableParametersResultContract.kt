@@ -4,12 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
-import com.example.timetable.ui.activities.TableParametersActivity
+import com.example.timetable.presentation.ui.TableActionsActivity
 
 class TableParametersResultContract: ActivityResultContract<String, String?>() {
 
     override fun createIntent(context: Context, input: String): Intent {
-        return Intent(context, TableParametersActivity::class.java)
+        return Intent(context, TableActionsActivity::class.java)
             .putExtra("databaseName", input)
     }
 

@@ -1,28 +1,30 @@
-package com.example.timetable.ui.activities
+package com.example.timetable.presentation.ui
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.timetable.*
 import com.example.timetable.databinding.AddEditActivityBinding
-import com.example.timetable.ui.viewmodels.JobViewModel
+import com.example.timetable.presentation.viewmodels.JobViewModel
 import com.example.timetable.utils.setActivityTheme
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddActivity : AppCompatActivity() {
+class UpdateActivity: AppCompatActivity(){
 
     private lateinit var binding: AddEditActivityBinding
     private val time = Calendar.getInstance()
     private lateinit var itemsList: Array<out String>
     private lateinit var abbrWeekDaysList: Array<out String>
+    private lateinit var selectedItem: Job
     private val viewModel by viewModels<JobViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,12 +32,15 @@ class AddActivity : AppCompatActivity() {
 
         setActivityTheme()
 
-        viewModel.getDatabaseNameObservable().value = intent.getStringExtra("databaseName")
-
         binding = AddEditActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.toolbar2.title = "Добавить"
+        selectedItem = intent.getSerializableExtra("selected_item") as Job
+        viewModel.getDatabaseNameObservable().value = intent.getStringExtra("databaseName")
+        val startTimeList = selectedItem.startTime?.split(":")
+        val endTimeList = selectedItem.endTime?.split(":")
+
+        binding.toolbar2.title = "Изменить"
         setSupportActionBar(binding.toolbar2)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -48,25 +53,21 @@ class AddActivity : AppCompatActivity() {
         binding.startTimeText.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(time.time)
         binding.endTimeText.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(time.time)
 
-        initTimePickers(binding.startTimePickerCard, binding.startTimeText)
-        initTimePickers(binding.endTimePickerCard, binding.endTimeText)
+        setContainersData()
+        initTimePickers(binding.startTimePickerCard, binding.startTimeText, startTimeList)
+        initTimePickers(binding.endTimePickerCard, binding.endTimeText, endTimeList)
 
-    }
-
-    private fun initDayPicker(){
-        for(i in abbrWeekDaysList)
-            binding.dayPicker.addTab(binding.dayPicker.newTab().setText(i))
     }
 
     private fun insertJobToDatabase() {
         with(binding) {
             if(isInputValid(
-                addJobName.text.toString(),
-                addJobTeacher.text.toString(),
-                addJobClass.text.toString()
-            )){
-                viewModel.addJob(Job(
-                    null,
+                    addJobName.text.toString(),
+                    addJobTeacher.text.toString(),
+                    addJobClass.text.toString()
+                )){
+                viewModel.updateJob(Job(
+                    selectedItem.uid,
                     dayMap[dayPicker.selectedTabPosition],
                     addJobName.text.toString(),
                     addJobTeacher.text.toString(),
@@ -75,14 +76,9 @@ class AddActivity : AppCompatActivity() {
                     addJobClass.text.toString(),
                     itemsList[binding.jobTypePicker.selectedTabPosition]
                 ))
-                // batch mode check
-                if(!batchSwitch.isChecked){
-                    onBackPressed()
-                    finish()
-                }
             }else{
                 showErrorDrawables()
-                Toast.makeText(this@AddActivity, "Заполните пустые поля", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@UpdateActivity, "Заполните пустые поля", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -108,10 +104,34 @@ class AddActivity : AppCompatActivity() {
                              jobClass: String
     ): Boolean = !(jobName.isBlank() || jobTeacher.isBlank() || jobClass.isBlank())
 
+    private fun deleteJob(){
+        viewModel.deleteJob(selectedItem)
+        onBackPressed()
+    }
 
-    private fun initTimePickers(pickerCard: CardView, timeTextView: TextView){
+    private fun setContainersData() {
+        with(binding)
+        {
+            addJobName.setText(selectedItem.jobName)
+            addJobTeacher.setText(selectedItem.jobTeacher)
+            addJobClass.setText(selectedItem.classroom)
+            dayPicker.getTabAt(
+                dayMap.values.toList().indexOf(selectedItem.dayName)
+            )!!.select()
+            startTimeText.setText(selectedItem.startTime)
+            endTimeText.setText(selectedItem.endTime)
+            jobTypePicker.getTabAt(itemsList.indexOf(selectedItem.jobType))!!.select()
 
+            dividerLine2.visibility = View.GONE
+            groupTitle2.visibility = View.GONE
+            batchModeLayout.visibility = View.GONE
+        }
+    }
+
+    private fun initTimePickers(pickerCard: CardView, timeTextView: TextView, timeList: List<String>?){
         pickerCard.setOnClickListener {
+            time.set(Calendar.HOUR_OF_DAY, timeList?.get(0)!!.toInt())
+            time.set(Calendar.MINUTE, timeList.get(1).toInt())
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 time.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 time.set(Calendar.MINUTE, minute)
@@ -119,6 +139,11 @@ class AddActivity : AppCompatActivity() {
             }
             TimePickerDialog(this, timeSetListener, time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), true).show()
         }
+    }
+
+    private fun initDayPicker(){
+        for(i in abbrWeekDaysList)
+            binding.dayPicker.addTab(binding.dayPicker.newTab().setText(i))
     }
 
     private fun initJobTypePicker(){
@@ -131,23 +156,22 @@ class AddActivity : AppCompatActivity() {
             insertJobToDatabase()
             true
         }
+        R.id.delete_job ->{
+            deleteJob()
+            true
+        }
         else -> {
             super.onOptionsItemSelected(item)
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.add_activity_menu, menu)
+        menuInflater.inflate(R.menu.update_activity_menu, menu)
         return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("info_log", "onDestroy")
     }
 }

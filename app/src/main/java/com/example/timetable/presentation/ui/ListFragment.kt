@@ -1,4 +1,4 @@
-package com.example.timetable.ui.activities
+package com.example.timetable.presentation.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.timetable.ui.adapters.JobListAdapter
+import com.example.timetable.presentation.adapters.JobListAdapter
 import com.example.timetable.databinding.MainListFragmentBinding
-import com.example.timetable.ui.viewmodels.JobViewModel
+import com.example.timetable.presentation.viewmodels.JobViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ListFragment(val dayName: String?, val viewModel: JobViewModel): Fragment() {
+class ListFragment(private val dayName: String?, private val viewModel: JobViewModel): Fragment() {
 
     private lateinit var binding: MainListFragmentBinding
 
@@ -52,21 +52,6 @@ class ListFragment(val dayName: String?, val viewModel: JobViewModel): Fragment(
                 })
             })
         }
-
-        /*viewModel.getDatabaseNameObservable().observe(viewLifecycleOwner, {
-
-        })
-
-        viewModel.getDayData(dayName).observe(viewLifecycleOwner, {dayData ->
-            adapter.setData(dayData)
-
-            viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){
-                when(adapter.itemCount){
-                    0 -> setListShown(false)
-                    else -> setListShown(true)
-                }
-            }
-        })*/
     }
 
     private fun setListShown(flag: Boolean){

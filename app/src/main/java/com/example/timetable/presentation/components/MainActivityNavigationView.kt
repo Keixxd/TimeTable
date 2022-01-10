@@ -1,4 +1,4 @@
-package com.example.timetable.ui.activities
+package com.example.timetable.presentation.components
 
 import android.app.AlertDialog
 import android.content.Context
@@ -11,7 +11,7 @@ import androidx.core.view.forEach
 import androidx.core.view.get
 import com.example.timetable.R
 import com.example.timetable.databinding.DrawerLayoutBinding
-import com.example.timetable.ui.viewmodels.JobViewModel
+import com.example.timetable.presentation.viewmodels.JobViewModel
 
 /*
   *   MainActivityNavigationView class responsible for Navigation View behavior, and also
@@ -26,14 +26,16 @@ import com.example.timetable.ui.viewmodels.JobViewModel
 
 class MainActivityNavigationView(val binding: DrawerLayoutBinding, val context: Context, val viewModel: JobViewModel) {
 
-    //dialogbuilder hell
+    companion object{
+        private var itemCounter = 0
+    }
 
     fun onLoadItemsInNavigationView(tablesList: List<String>?) {
         val menu = getTablesMenu()
         for (table in tablesList!!)
             menu.add(
                 R.id.item_group,
-                Menu.NONE,
+                itemCounter++,
                 Menu.NONE,
                 table
             ).setOnMenuItemClickListener { menuItem ->
@@ -67,7 +69,7 @@ class MainActivityNavigationView(val binding: DrawerLayoutBinding, val context: 
         val menu = getTablesMenu()
         return menu.add(
             R.id.item_group,
-            Menu.NONE,
+            itemCounter++,
             Menu.NONE,
             editText.text.toString()
         ).setOnMenuItemClickListener { menuItem ->
@@ -94,5 +96,42 @@ class MainActivityNavigationView(val binding: DrawerLayoutBinding, val context: 
     private fun onItemClick(menuItem: MenuItem) {
         switchToNewTable(menuItem)
         setCheckMenuButton(getTablesMenu(), menuItem)
+    }
+
+    fun setNextItemChecked(item: MenuItem?): MenuItem{
+        var id = item?.itemId
+        when(id){
+            itemCounter -> return getTablesMenu().get(--id)
+            else -> {
+                id=+1
+                return getTablesMenu().get(id)
+            }
+        }
+    }
+
+    fun removeItemFromMenu(): MenuItem?{
+        val item = findCheckedItem()
+        item?.setVisible(false)
+        return item
+    }
+
+    private fun findCheckedItem(): MenuItem?{
+        var findResult: MenuItem? = null
+        getTablesMenu().forEach { item ->
+            if(item.isChecked){
+                item.setChecked(false)
+                findResult = item
+            }
+        }
+        return findResult
+    }
+
+    fun updateNavViewMenu(result: String?) {
+        with(binding){
+            navView.menu[0].subMenu.forEach {
+                if(it.title.equals(viewModel.getDatabaseNameObservable().value))
+                    it.title = result
+            }
+        }
     }
 }

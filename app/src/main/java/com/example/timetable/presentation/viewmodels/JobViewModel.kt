@@ -1,4 +1,4 @@
-package com.example.timetable.ui.viewmodels
+package com.example.timetable.presentation.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*

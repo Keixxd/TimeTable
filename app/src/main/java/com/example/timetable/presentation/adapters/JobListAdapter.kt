@@ -1,4 +1,4 @@
-package com.example.timetable.ui.adapters
+package com.example.timetable.presentation.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.timetable.Job
-import com.example.timetable.ui.activities.UpdateActivity
 import com.example.timetable.databinding.JobNewBinding
-import com.example.timetable.ui.viewmodels.JobViewModel
+import com.example.timetable.presentation.ui.UpdateActivity
+import com.example.timetable.presentation.viewmodels.JobViewModel
 
 class JobListAdapter(private val context: Context, private val viewModel: JobViewModel): RecyclerView.Adapter<JobListAdapter.JobViewHolder>() {
 

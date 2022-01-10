@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true" >
         <activity
-            android:name="com.example.timetable.ui.activities.SplashScreenActivity"
+            android:name="com.example.timetable.presentation.ui.SplashScreenActivity"
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -19,28 +19,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.timetable.ui.activities.SettingsActivity"
+            android:name="com.example.timetable.presentation.ui.SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_settings"
             android:theme="@style/Theme.TimeTable.Indigo_100"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.example.timetable.ui.activities.UpdateActivity"
+            android:name="com.example.timetable.presentation.ui.UpdateActivity"
             android:exported="true"
             android:theme="@style/Theme.TimeTable.Indigo_100"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.example.timetable.ui.activities.AddActivity"
+            android:name="com.example.timetable.presentation.ui.AddActivity"
             android:exported="true"
             android:theme="@style/Theme.TimeTable.Indigo_100"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.example.timetable.ui.activities.MainActivity"
+            android:name="com.example.timetable.presentation.ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.TimeTable.Indigo_100"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.example.timetable.ui.activities.TableParametersActivity"
+            android:name="com.example.timetable.presentation.ui.TableActionsActivity"
             android:exported="true"
             android:theme="@style/Theme.TimeTable.Indigo_100">
         </activity>

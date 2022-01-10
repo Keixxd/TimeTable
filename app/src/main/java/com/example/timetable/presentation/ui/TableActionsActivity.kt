@@ -1,4 +1,4 @@
-package com.example.timetable.ui.activities
+package com.example.timetable.presentation.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -10,12 +10,13 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.timetable.R
+import com.example.timetable.data.repository.FileManager
 import com.example.timetable.databinding.TableParamsActivityBinding
 import com.example.timetable.utils.setActivityTheme
-import com.example.timetable.ui.viewmodels.JobViewModel
-import java.io.File
+import com.example.timetable.presentation.viewmodels.JobViewModel
+import java.io.IOException
 
-class TableParametersActivity: AppCompatActivity() {
+class TableActionsActivity: AppCompatActivity() {
 
     private lateinit var binding: TableParamsActivityBinding
     private var receivedTableName: String? = null
@@ -41,7 +42,14 @@ class TableParametersActivity: AppCompatActivity() {
                 finish()
             }
             deleteTableCard.setOnClickListener{
-
+                try {
+                    FileManager(this@TableActionsActivity)
+                        .onDeleteFile(receivedTableName)
+                    setResult(Activity.RESULT_OK, onPackIntent("TABLE_DELETED"))
+                    finish()
+                }catch (e: IOException){
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -75,21 +83,18 @@ class TableParametersActivity: AppCompatActivity() {
     }
 
     private fun onSaveParams():String {
-        val resultTableName = binding.timetableEtName.text
-        if(!resultTableName.equals(receivedTableName)) {
+        val resultTableName = binding.timetableEtName.text.toString()
+        val fileManager = FileManager(this)
+        if(resultTableName != receivedTableName) {
             try {
-            File(dataDir, "databases/${resultTableName}").createNewFile()
-            val file = findFile()
-                val newFile = File(dataDir, "databases/${resultTableName}")
-                file?.copyTo(newFile, true)
-                file?.delete()
+                fileManager.onRewriteFileName(receivedTableName, resultTableName)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }else{
             onSupportNavigateUp()
         }
-        return resultTableName.toString()
+        return resultTableName
     }
 
     private fun onPackIntent(result: String): Intent {
@@ -97,10 +102,6 @@ class TableParametersActivity: AppCompatActivity() {
         resultIntent.putExtra("table_params_activity_result", result)
         return resultIntent
     }
-    private fun findFile(): File? = File(dataDir, "databases")
-        .listFiles()
-        ?.filter { it.name.equals(receivedTableName) }
-        ?.get(0)
 
     private fun showErrorDrawables(){
         with(binding) {

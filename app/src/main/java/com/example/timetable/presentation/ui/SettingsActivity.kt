@@ -1,4 +1,4 @@
-package com.example.timetable.ui.activities
+package com.example.timetable.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -41,7 +41,9 @@ class SettingsActivity : AppCompatActivity() {
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
+
             val themePreference: ListPreference? = preferenceManager.findPreference("theme_preference")
+
             themePreference?.setOnPreferenceChangeListener(object: Preference.OnPreferenceChangeListener{
                 override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
                     val pref = PreferenceManager.getDefaultSharedPreferences(activity?.baseContext)

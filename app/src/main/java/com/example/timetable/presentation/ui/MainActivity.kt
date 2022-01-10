@@ -1,4 +1,4 @@
-package com.example.timetable.ui.activities
+package com.example.timetable.presentation.ui
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,12 +10,15 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.forEach
+import androidx.core.view.get
 import androidx.preference.PreferenceManager
 import com.example.timetable.*
-import com.example.timetable.ui.adapters.PagerFragmentAdapter
+import com.example.timetable.presentation.adapters.PagerFragmentAdapter
 import com.example.timetable.databinding.DrawerLayoutBinding
+import com.example.timetable.presentation.components.MainActivityNavigationView
 import com.example.timetable.utils.TableParametersResultContract
-import com.example.timetable.ui.viewmodels.JobViewModel
+import com.example.timetable.presentation.viewmodels.JobViewModel
 import com.example.timetable.utils.setActivityTheme
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -43,26 +46,11 @@ class MainActivity : AppCompatActivity() {
             tablesList = getDatabasesNames()
         }
 
-        /*
-        *   because i didnt find another way (yet!) to change style of theme in runtime
-        *   without re-creating an activity - this solution will be here
-        *   also (idk bug or not) this works only in Dispatcher.Default context,
-        *   my opinion to this - its somehow binded with function, because maybe
-        *   context.theme.applyTheme is cannot work in Dispathcer.Main
-        *   will check this later
-        */
-
         registerForResultActivity()
         setActivityTheme()
 
-        /*CoroutineScope(Dispatchers.Default).launch {
-            setActivityTheme()
-        }*/
-
         binding = DrawerLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //NavigationViewBehavior().onLoadItemsInNavigationView(tablesList)
 
         initViewModel()
         navView = MainActivityNavigationView(binding, this, viewModel)
@@ -158,10 +146,16 @@ class MainActivity : AppCompatActivity() {
         startForResult = registerForActivityResult(TableParametersResultContract()){ result: String? ->
             when(result){
                 activityResultsTypes.ACTIVITY_CANCELED.code -> {}
-                activityResultsTypes.TABLE_DELETED.code -> {}
+                activityResultsTypes.TABLE_DELETED.code -> {
+                    val item = navView.setNextItemChecked(
+                        item = navView.removeItemFromMenu()
+                    )
+                    viewModel.getDatabaseNameObservable().value = item?.title.toString()
+                }
                 activityResultsTypes.TABLE_CLEARED.code -> {binding.main.listsPager.adapter?.notifyDataSetChanged()}
                 else -> {
-                    updateNavViewMenu(result)
+                    navView.updateNavViewMenu(result)
+                    //updateNavViewMenu(result)
                     viewModel.getDatabaseNameObservable().value = result
                     binding.main.listsPager.adapter?.notifyDataSetChanged()
                 }
@@ -169,14 +163,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateNavViewMenu(result: String?) {
+    /*private fun updateNavViewMenu(result: String?) {
         with(binding){
             navView.menu[0].subMenu.forEach {
                 if(it.title.equals(viewModel.getDatabaseNameObservable().value))
                     it.title = result
             }
         }
-    }
+    }*/
 
     private fun startEditTableParamsActivity() {
         startForResult.launch(viewModel.getDatabaseNameObservable().value)
